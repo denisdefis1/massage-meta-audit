@@ -1,0 +1,93 @@
+{
+  "generated_at": "2026-08-26T09:41:35.235Z",
+  "account_id": "1734567316918620",
+  "business": "Massage Studio, Tbilisi, Georgia",
+  "audit_period": {
+    "start": "2025-05-22",
+    "end": "2026-08-25",
+    "note": "$0 spend before 2025-05-22 confirmed"
+  },
+  "primary_kpi": "messaging_conversation_started_7d (Instagram DM)",
+  "headline_metrics": {
+    "total_spend": 3933.06,
+    "total_conversations": 939,
+    "cost_per_conversation": 4.19,
+    "impressions": 2088638,
+    "ctr": 1.48,
+    "cpc": 0.13,
+    "cpm": 1.88,
+    "first_reply_rate_pct": 84.88,
+    "replied_rate_pct": 38.34
+  },
+  "campaign_summary": {
+    "total": 111,
+    "with_spend": 60,
+    "active": 18,
+    "paused": 93,
+    "deleted_orphan": 4,
+    "best_cost_per_msg": {
+      "name": "Болит спина? М, Ж",
+      "cost": 1.05
+    },
+    "worst_cost_per_msg": {
+      "name": "трафик на конкурс - 8 марта",
+      "cost": 70.59
+    }
+  },
+  "messaging_funnel": {
+    "total_connection": 1017,
+    "started": 939,
+    "first_reply": 797,
+    "replied": 360,
+    "order": 6,
+    "cost_per_conv": 4.19
+  },
+  "top_placement": {
+    "label": "instagram/feed",
+    "spend": 1225.99,
+    "spend_share_pct": 31.17
+  },
+  "top_device": {
+    "device": "iphone",
+    "spend": 2106.97,
+    "spend_share_pct": 53.57
+  },
+  "top_age_gender_segment": {
+    "age": "65+",
+    "gender": "male",
+    "cost_per_msg": 1.02
+  },
+  "key_anomalies": [
+    {
+      "severity": "warning",
+      "title": "Фрагментация кампаний (много кампаний с малыми расходами)",
+      "id": "campaign_fragmentation"
+    },
+    {
+      "severity": "warning",
+      "title": "Скачки стоимости диалога в отдельные месяцы",
+      "id": "cost_per_msg_spikes"
+    }
+  ],
+  "top_recommendations": [
+    {
+      "priority": "P1",
+      "title": "Масштабировать лучшие кампании по диалогам",
+      "confidence": "high"
+    },
+    {
+      "priority": "P1",
+      "title": "Воспроизвести условия лучших месяцев (дек. 2025, фев.–мар. 2026)",
+      "confidence": "medium"
+    }
+  ],
+  "data_quality_flags": [
+    "Quality/Engagement/Conversion Rankings: UNKNOWN for all entities",
+    "ROAS: unavailable (no revenue data)",
+    "Purchases (6) and Leads (7): insufficient for statistical analysis",
+    "Account-level reach cannot be summed",
+    "Deleted campaigns: 4 orphan campaigns with spend but no structural metadata",
+    "Missing months: 2025-06, 2025-09 (zero activity confirmed)",
+    "2026-08: partial month (21 of 31 days as of export date)"
+  ]
+}

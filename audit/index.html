@@ -1,0 +1,1691 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meta Ads Audit — Just Massage Studio</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root {
+  /* ── Lagoon dark palette ── */
+  --base:    #0a0d14;
+  --panel:   #10141d;
+  --card:    #141a25;
+  --card2:   #1a2130;
+  --line:    #232c3d;
+  --line2:   #1a2130;
+  --ink:     #e8ebf2;
+  --mute:    #9aa3b7;
+  --dim:     #6b7488;
+  --accent:  #4a92e0;
+  --accent2: #7c6aed;
+  --gold:    #d8b878;
+  --pos:     #46c08a;
+  --neg:     #e2683c;
+  --warn:    #e6b450;
+  /* compat aliases */
+  --bg: var(--base);
+  --surface: var(--card);
+  --border: var(--line);
+  --text: var(--ink);
+  --text-muted: var(--mute);
+  --text-light: var(--dim);
+  --green: var(--pos);
+  --green-light: rgba(70,192,138,.12);
+  --red: #f04438;
+  --orange: var(--warn);
+  --r: 14px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-size: 13px; line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  color: var(--ink);
+  background:
+    radial-gradient(900px 500px at 85% -10%, rgba(74,146,224,.09), transparent 60%),
+    radial-gradient(700px 400px at -5% 5%,  rgba(216,184,120,.05), transparent 55%),
+    var(--base);
+  min-height: 100vh;
+}
+
+/* ── HEADER ──────────────────────────────────── */
+header {
+  background: var(--panel);
+  height: 52px; padding: 0 20px;
+  display: flex; align-items: center; gap: 12px;
+  position: sticky; top: 0; z-index: 200;
+  border-bottom: 1px solid var(--line);
+}
+.brand {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px; font-weight: 600; color: var(--ink);
+}
+.brand::before {
+  content: '';
+  display: inline-block; width: 5px; height: 22px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, var(--accent), var(--gold));
+  flex-shrink: 0;
+}
+.brand span { color: var(--dim); font-weight: 400; font-size: 12.5px; }
+.nav-pages {
+  display: flex; background: var(--card2);
+  border: 1px solid var(--line); border-radius: 8px;
+  padding: 3px; gap: 2px;
+}
+.nav-page-btn {
+  background: transparent; border: none; color: var(--mute);
+  cursor: pointer; padding: 4px 14px; border-radius: 6px;
+  font-size: 12px; font-weight: 500; transition: all .15s; white-space: nowrap;
+}
+.nav-page-btn:hover { color: var(--ink); }
+.nav-page-btn.active {
+  background: var(--accent); color: #fff; font-weight: 600;
+  box-shadow: 0 2px 8px rgba(74,146,224,.4);
+}
+.nav-scroll { display: flex; gap: 1px; }
+.nav-scroll-btn {
+  background: transparent; border: none; color: var(--dim);
+  cursor: pointer; padding: 5px 10px; border-radius: 5px;
+  font-size: 12px; transition: color .15s; white-space: nowrap;
+}
+.nav-scroll-btn:hover { color: var(--mute); }
+.period-tag {
+  margin-left: auto; font-size: 11px; color: var(--dim);
+  background: var(--card2); padding: 3px 10px;
+  border-radius: 20px; border: 1px solid var(--line); white-space: nowrap;
+}
+
+/* ── PAGE ────────────────────────────────────── */
+.page { max-width: 1260px; margin: 0 auto; padding: 18px 20px; }
+.page.hidden { display: none; }
+
+/* ── BENTO CARD / SECTION ────────────────────── */
+section {
+  background: linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,0)), var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  box-shadow: 0 1px 0 rgba(255,255,255,.03) inset, 0 8px 24px -16px rgba(0,0,0,.8);
+  margin-bottom: 8px;
+  overflow: hidden;
+  transition: border-color .18s, transform .18s;
+}
+section:hover { border-color: #33405a; }
+
+.section-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--line2);
+  background: rgba(255,255,255,.015);
+}
+.section-num {
+  width: 22px; height: 22px; border-radius: 6px;
+  background: var(--accent); color: #fff;
+  font-size: 10px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13.5px; font-weight: 600; color: var(--ink);
+}
+.section-subtitle { font-size: 11px; color: var(--dim); margin-left: auto; }
+.section-body { padding: 16px; }
+
+/* ── KPI CARDS ───────────────────────────────── */
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
+.kpi-card {
+  background: var(--card2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 13px 14px;
+  position: relative; overflow: hidden;
+}
+.kpi-card::before {
+  content: '';
+  position: absolute; right: -16px; top: -20px;
+  width: 70px; height: 70px; border-radius: 50%;
+  background: var(--accent); opacity: .12; filter: blur(18px);
+}
+.kpi-card.green::before { background: var(--pos); }
+.kpi-card.orange::before { background: var(--warn); }
+.kpi-card.blue::before { background: var(--accent); }
+.kpi-label {
+  font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .07em;
+  color: var(--dim); margin-bottom: 6px;
+}
+.kpi-value {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px; font-weight: 700;
+  color: var(--ink); line-height: 1.1; letter-spacing: -.025em;
+}
+.kpi-value.lg { font-size: 22px; }
+.kpi-sub { font-size: 11px; color: var(--mute); margin-top: 3px; }
+
+/* ── EXEC SUMMARY ────────────────────────────── */
+.exec-summary {
+  background: rgba(74,146,224,.07);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 6px 6px 0;
+  padding: 10px 13px;
+  font-size: 12.5px; line-height: 1.65;
+  color: var(--mute);
+  margin-top: 12px;
+  word-break: break-word;
+}
+.exec-summary strong { color: var(--ink); }
+
+/* ── TABLES ──────────────────────────────────── */
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th {
+  background: var(--card2); text-align: left;
+  padding: 7px 10px; font-size: 10px;
+  font-weight: 700; text-transform: uppercase; letter-spacing: .07em;
+  color: var(--dim); border-bottom: 1px solid var(--line);
+  white-space: nowrap; cursor: pointer; user-select: none;
+}
+th:hover { color: var(--accent); }
+td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--line2);
+  vertical-align: middle; max-width: 300px; color: var(--ink);
+}
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(74,146,224,.05) !important; }
+.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.null-val { color: var(--dim); }
+
+/* ── BADGES ──────────────────────────────────── */
+.badge {
+  display: inline-flex; align-items: center;
+  border-radius: 5px; padding: 2px 7px;
+  font-size: 11px; font-weight: 600; line-height: 1.4; white-space: nowrap;
+}
+.badge-blue   { background: rgba(74,146,224,.15);  color: #79b8f3; }
+.badge-green  { background: rgba(70,192,138,.15);  color: #56d499; }
+.badge-red    { background: rgba(226,104,60,.15);  color: #f4916a; }
+.badge-orange { background: rgba(230,180,80,.15);  color: #ecc97a; }
+.badge-gray   { background: rgba(255,255,255,.07); color: var(--mute); }
+.badge-purple { background: rgba(124,106,237,.15); color: #a894f8; }
+.badge-yellow { background: rgba(230,180,80,.12);  color: var(--warn); }
+
+/* ── FILTERS ─────────────────────────────────── */
+.filter-bar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; align-items: center; }
+.filter-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--dim); }
+.filter-btn {
+  border: 1px solid var(--line); background: var(--card2); color: var(--mute);
+  cursor: pointer; padding: 4px 12px; border-radius: 20px;
+  font-size: 12px; transition: all .12s; white-space: nowrap;
+}
+.filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+.filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+.filter-sep { width: 1px; height: 16px; background: var(--line); margin: 0 2px; }
+
+/* ── BAR CHART ───────────────────────────────── */
+.bar-chart { display: flex; align-items: flex-end; gap: 3px; height: 54px; margin-bottom: 4px; }
+.bar-col { flex: 1; }
+.bar {
+  width: 100%; background: var(--accent); border-radius: 3px 3px 0 0;
+  min-height: 2px; transition: height .3s; opacity: .7;
+}
+.bar:hover { opacity: 1; }
+.bar.gap-bar { background: var(--line); opacity: 1; }
+.chart-wrap { margin-bottom: 8px; }
+
+/* ── FUNNEL ──────────────────────────────────── */
+.funnel { display: flex; margin: 8px 0 12px; }
+.funnel-step { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 2px; }
+.funnel-bar-wrap { width: 100%; display: flex; align-items: flex-end; justify-content: center; height: 52px; }
+.funnel-bar { width: 70%; border-radius: 4px 4px 0 0; background: var(--accent); min-height: 3px; }
+.funnel-value {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px; font-weight: 700; margin-top: 6px; letter-spacing: -.02em; color: var(--ink);
+}
+.funnel-label { font-size: 9px; color: var(--dim); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; margin: 2px 0; }
+.funnel-rate { font-size: 11px; color: var(--accent); font-weight: 600; }
+.funnel-cost { font-size: 11px; color: var(--pos); font-weight: 600; }
+.funnel-arrow { display: flex; align-items: center; font-size: 16px; color: var(--dim); padding-bottom: 52px; }
+
+/* ── ANOMALY / REC CARDS ─────────────────────── */
+.anomaly-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 8px; }
+.anomaly-card {
+  background: var(--card2); border: 1px solid var(--line);
+  border-left: 3px solid; border-radius: 8px; padding: 11px 13px;
+}
+.anomaly-card.critical { border-left-color: var(--neg); }
+.anomaly-card.warning  { border-left-color: var(--warn); }
+.anomaly-card.info     { border-left-color: var(--accent); }
+.anomaly-header { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 4px; }
+.anomaly-title { font-weight: 600; font-size: 12.5px; flex: 1; color: var(--ink); line-height: 1.4; }
+.anomaly-body { font-size: 11.5px; color: var(--mute); line-height: 1.55; }
+.anomaly-detail { font-size: 11px; color: var(--dim); margin-top: 4px; }
+
+.rec-list { display: flex; flex-direction: column; gap: 6px; }
+.rec-card {
+  background: var(--card2); border: 1px solid var(--line);
+  border-left: 3px solid; border-radius: 8px; padding: 11px 13px;
+}
+.rec-card.P1 { border-left-color: var(--neg); }
+.rec-card.P2 { border-left-color: var(--warn); }
+.rec-card.P3 { border-left-color: var(--dim); }
+.rec-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.rec-title { font-weight: 600; font-size: 13px; flex: 1; color: var(--ink); line-height: 1.4; }
+.rec-body { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; font-size: 12px; }
+.rec-field-label { font-weight: 700; color: var(--dim); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 1px; }
+.rec-field-value { color: var(--mute); line-height: 1.5; }
+.confidence-high { color: var(--pos); font-weight: 600; }
+.confidence-medium { color: var(--warn); font-weight: 600; }
+
+/* ── LIMITATIONS ─────────────────────────────── */
+.limit-list { list-style: none; }
+.limit-list li {
+  display: flex; gap: 10px; align-items: flex-start;
+  font-size: 12.5px; color: var(--mute);
+  padding: 7px 0; border-bottom: 1px solid var(--line2);
+}
+.limit-list li:last-child { border-bottom: none; }
+.limit-list li::before { content: '·'; color: var(--dim); font-size: 18px; line-height: 1.1; flex-shrink: 0; }
+.limit-list li.ok::before { content: '✓'; color: var(--pos); font-size: 13px; font-weight: 700; }
+.limit-list li.ok { color: var(--ink); }
+
+/* ── STRATEGY PAGE ───────────────────────────── */
+.strategy-empty {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  min-height: 60vh; gap: 12px; text-align: center;
+}
+.strategy-empty h2 { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 600; color: var(--ink); }
+.strategy-empty p { font-size: 13px; color: var(--mute); max-width: 380px; line-height: 1.65; }
+
+/* ── MISC UTILS ──────────────────────────────── */
+.tier-best      { color: var(--pos); font-weight: 700; }
+.tier-good      { color: #59dca8; font-weight: 600; }
+.tier-average   { color: var(--ink); }
+.tier-expensive { color: var(--neg); font-weight: 600; }
+.tier-no_messaging { color: var(--dim); }
+.tier-no_data      { color: var(--dim); }
+.delta-pos  { color: var(--neg); font-size: 11px; }
+.delta-neg  { color: var(--pos); font-size: 11px; }
+.delta-neutral { color: var(--dim); font-size: 11px; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.two-col > div { min-width: 0; }
+.mt-8  { margin-top: 8px; }
+.mt-16 { margin-top: 16px; }
+.note  { font-size: 11px; color: var(--dim); margin-top: 6px; }
+.loading { text-align: center; padding: 60px 20px; color: var(--mute); font-size: 14px; }
+.error-msg { background: rgba(240,68,56,.12); color: var(--neg); border-radius: 8px; padding: 14px; margin: 14px; border: 1px solid rgba(240,68,56,.25); }
+.row-gap td { background: var(--card2) !important; color: var(--dim); font-style: italic; text-align: center; }
+.row-partial td { background: rgba(230,180,80,.05); }
+tr.row-best td { background: rgba(70,192,138,.06); }
+tr.row-best td:first-child { border-left: 2px solid var(--pos); }
+tr.row-good td { background: rgba(70,192,138,.03); }
+tr.row-good td:first-child { border-left: 2px solid rgba(70,192,138,.4); }
+.engagement-row td:first-child { border-left: 2px solid rgba(124,106,237,.6); }
+.badge-period-all  { background: rgba(124,106,237,.18); color: #a894f8; font-size: 10px; padding: 2px 7px; border-radius: 10px; font-weight: 600; white-space: nowrap; }
+.badge-period-year { background: rgba(70,192,138,.18);  color: #56d499; font-size: 10px; padding: 2px 7px; border-radius: 10px; font-weight: 600; white-space: nowrap; }
+.badge-primary     { background: rgba(124,106,237,.18); color: #a894f8; font-size: 10px; padding: 2px 7px; border-radius: 10px; font-weight: 700; }
+.info-box {
+  background: rgba(74,146,224,.08); border: 1px solid rgba(74,146,224,.2);
+  border-radius: 8px; padding: 10px 14px;
+  font-size: 12px; color: #79b8f3; margin-bottom: 12px; line-height: 1.6;
+}
+.camp-name-strong { font-weight: 600; color: var(--ink); }
+th.th-asc::after  { content: ' ↑'; color: var(--accent); }
+th.th-desc::after { content: ' ↓'; color: var(--accent); }
+th[data-sort-key].th-asc, th[data-sort-key].th-desc { color: var(--accent); }
+.trunc { max-width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: inline-block; vertical-align: bottom; }
+
+/* ── EXPAND / COLLAPSE ───────────────────────── */
+.row-hidden { display: none; }
+.expand-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 8px; padding: 5px 14px;
+  background: var(--card2); border: 1px solid var(--line);
+  border-radius: 20px; color: var(--mute);
+  font-size: 12px; cursor: pointer; transition: all .15s;
+}
+.expand-btn:hover { border-color: var(--accent); color: var(--accent); }
+.collapsible-section { border: 1px solid var(--line2); border-radius: 8px; margin-top: 12px; overflow: hidden; }
+.collapsible-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 9px 12px; background: var(--card2);
+  cursor: pointer; user-select: none;
+  border-bottom: 1px solid transparent; transition: background .15s;
+}
+.collapsible-header:hover { background: rgba(255,255,255,.04); }
+.collapsible-header.open { border-bottom-color: var(--line2); }
+.collapsible-title { font-size: 12.5px; font-weight: 600; color: var(--ink); display: flex; align-items: center; gap: 8px; }
+.collapsible-chevron { color: var(--dim); font-size: 11px; transition: transform .2s; }
+.collapsible-chevron.open { transform: rotate(180deg); }
+.collapsible-body { padding: 12px; display: none; }
+.collapsible-body.open { display: block; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: var(--line); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: #33405a; }
+::-webkit-scrollbar-track { background: transparent; }
+
+@media (max-width: 1100px) { .two-col { grid-template-columns: 1fr; } }
+@media (max-width: 900px)  { .kpi-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+@media (max-width: 700px)  { .anomaly-grid { grid-template-columns: 1fr; } .page { padding: 12px; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">Meta Ads Audit <span>— Just Massage Studio · Tbilisi</span></div>
+  <div class="nav-pages">
+    <button class="nav-page-btn active" id="tab-audit" onclick="showPage('audit')">Аудит</button>
+    <button class="nav-page-btn" id="tab-strategy" onclick="showPage('strategy')">Стратегия</button>
+  </div>
+  <div class="nav-scroll" id="audit-scroll-nav">
+    <button class="nav-scroll-btn" onclick="scrollToTop()">↑ Топ</button>
+    <button class="nav-scroll-btn" onclick="scrollToAnchor('s11')">Ограничения</button>
+    <button class="nav-scroll-btn" onclick="scrollToAnchor('s12')">Резюме</button>
+  </div>
+  <div class="period-tag" id="period-tag">Загрузка...</div>
+</header>
+
+<div id="audit-page" class="page">
+  <div class="loading" id="loading-msg">⏳ Загрузка данных аналитики...</div>
+</div>
+
+<div id="strategy-page" class="page hidden">
+  <div class="strategy-empty">
+    <h2>Стратегия в разработке</h2>
+    <p>Будет сформирована на основе данных аудита и брифа клиента</p>
+  </div>
+</div>
+
+<script>
+// ── Navigation ───────────────────────────────────────────────────────────────
+// ── Collapsible sections ──────────────────────────────────────────────────────
+function toggleCollapsible(header) {
+  const body = header.nextElementSibling;
+  const chevron = header.querySelector('.collapsible-chevron');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  body.style.display = isOpen ? 'none' : 'block';
+  header.classList.toggle('open', !isOpen);
+  if (chevron) chevron.classList.toggle('open', !isOpen);
+}
+
+// ── Expandable tables (>15 rows) ──────────────────────────────────────────────
+function makeExpandable(tbodyId, limit) {
+  limit = limit || 15;
+  const tbody = document.getElementById(tbodyId);
+  if (!tbody) return;
+  const rows = Array.from(tbody.querySelectorAll('tr'));
+  if (rows.length <= limit) return;
+  rows.forEach(function(r, i) { if (i >= limit) r.classList.add('row-hidden'); });
+  const wrap = tbody.closest('.table-wrap') || tbody.closest('table');
+  const btn = document.createElement('button');
+  btn.className = 'expand-btn';
+  const extra = rows.length - limit;
+  btn.textContent = '▼ Показать ещё ' + extra;
+  let expanded = false;
+  btn.onclick = function() {
+    expanded = !expanded;
+    rows.forEach(function(r, i) { if (i >= limit) r.classList.toggle('row-hidden', !expanded); });
+    btn.textContent = expanded ? '▲ Показать меньше' : '▼ Показать ещё ' + extra;
+  };
+  wrap.after(btn);
+}
+
+function showPage(name) {
+  document.getElementById('audit-page').classList.toggle('hidden', name !== 'audit');
+  document.getElementById('strategy-page').classList.toggle('hidden', name !== 'strategy');
+  document.getElementById('audit-scroll-nav').style.display = name === 'audit' ? 'flex' : 'none';
+  document.getElementById('tab-audit').classList.toggle('active', name === 'audit');
+  document.getElementById('tab-strategy').classList.toggle('active', name === 'strategy');
+}
+function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+function scrollToAnchor(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
+// ── Formatters ───────────────────────────────────────────────────────────────
+const $ = (s, ctx = document) => ctx.querySelector(s);
+const $$ = (s, ctx = document) => [...ctx.querySelectorAll(s)];
+const DASH = '<span class="null-val">—</span>';
+
+function fmtC(n, dec = 2) {
+  if (n === null || n === undefined || isNaN(n)) return DASH;
+  return '$' + Number(n).toFixed(dec);
+}
+function fmtN(n) {
+  if (n === null || n === undefined || isNaN(n)) return DASH;
+  return Number(n).toLocaleString();
+}
+function fmtPct(n, dec = 2) {
+  if (n === null || n === undefined || isNaN(n)) return DASH;
+  return Number(n).toFixed(dec) + '%';
+}
+function fmtRate(n) {
+  if (n === null || n === undefined || isNaN(n)) return DASH;
+  return (n * 100).toFixed(1) + '%';
+}
+function trunc(s, len = 42) {
+  if (!s) return DASH;
+  return s.length > len ? `<span class="trunc" title="${s.replace(/"/g,'&quot;')}">${s.slice(0, len)}…</span>` : s;
+}
+function delta(pct) {
+  if (pct === null || pct === undefined) return '';
+  const sign = pct > 0 ? '+' : '';
+  const cls = pct > 0 ? 'delta-pos' : pct < 0 ? 'delta-neg' : 'delta-neutral';
+  return `<span class="${cls}">${sign}${pct.toFixed(1)}%</span>`;
+}
+function objBadge(obj) {
+  const map = {
+    MESSAGES: ['badge-blue', 'Диалоги'],
+    LINK_CLICKS: ['badge-gray', 'Трафик'],
+    OUTCOME_TRAFFIC: ['badge-gray', 'Трафик'],
+    OUTCOME_ENGAGEMENT: ['badge-purple', 'Вовлечённость'],
+    OUTCOME_SALES: ['badge-orange', 'Продажи'],
+    OUTCOME_LEADS: ['badge-yellow', 'Лиды'],
+  };
+  const [cls, label] = map[obj] || ['badge-gray', obj || '?'];
+  return `<span class="badge ${cls}">${label}</span>`;
+}
+function statusBadge(s) {
+  if (!s) return DASH;
+  const labels = { ACTIVE: 'Активна', PAUSED: 'Пауза', DELETED: 'Удалена' };
+  const cls = s === 'ACTIVE' ? 'badge-green' : s === 'DELETED' ? 'badge-red' : 'badge-gray';
+  return `<span class="badge ${cls}">${labels[s] || s}</span>`;
+}
+function tierLabel(t) {
+  const map = { best: '★ Лучшая', good: '✓ Хорошая', average: 'Средняя', expensive: '↑ Дорогая', no_messaging: '— н/д', no_data: '— н/д' };
+  const cls = `tier-${t}`;
+  return `<span class="${cls}">${map[t] || t}</span>`;
+}
+function sevBadge(s) {
+  const map = { critical: 'badge-red', warning: 'badge-orange', info: 'badge-blue' };
+  const labels = { critical: 'КРИТИЧ.', warning: 'ПРЕДУПР.', info: 'ИНФО' };
+  return `<span class="badge ${map[s] || 'badge-gray'}">${labels[s] || s.toUpperCase()}</span>`;
+}
+function prioBadge(p) {
+  const map = { P1: 'badge-red', P2: 'badge-orange', P3: 'badge-gray' };
+  return `<span class="badge ${map[p] || 'badge-gray'}">${p}</span>`;
+}
+function confBadge(c) {
+  const cls = c === 'high' ? 'confidence-high' : 'confidence-medium';
+  const labels = { high: 'высокая', medium: 'средняя' };
+  return `<span class="${cls}">${labels[c] || c}</span>`;
+}
+function pBadge(type) {
+  if (type === 'all') return `<span class="badge-period-all">май 2025 – авг 2026</span>`;
+  if (type === 'year') return `<span class="badge-period-year">окт 2025 – авг 2026</span>`;
+  if (type === 'primary') return `<span class="badge-primary">ДИАЛОГИ</span>`;
+  return '';
+}
+// Is month within main period (>= 2025-09 = Oct onward, Sep itself is a gap)
+function isLastYear(month) { return month >= '2025-09'; }
+
+// ── Data Loading ─────────────────────────────────────────────────────────────
+const FILES = [
+  'account-kpis', 'monthly-performance', 'campaign-performance',
+  'adset-performance', 'creative-performance', 'targeting-analysis',
+  'breakdown-analysis', 'messaging-funnel', 'anomalies',
+  'recommendations', 'audit-summary'
+];
+
+let D = {}; // global data store
+
+async function loadData() {
+  const results = await Promise.all(
+    FILES.map(f =>
+      fetch(`../data/analytics/${f}.json`)
+        .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status} for ${f}.json`); return r.json(); })
+        .then(data => [f, data])
+    )
+  );
+  results.forEach(([k, v]) => { D[k.replace(/-/g, '_')] = v; });
+}
+
+// ── Main Render ───────────────────────────────────────────────────────────────
+async function init() {
+  try {
+    await loadData();
+    const ap = document.getElementById('audit-page');
+    ap.innerHTML = buildAuditHTML();
+    document.getElementById('period-tag').textContent =
+      `${D.account_kpis.period.start} → ${D.account_kpis.period.end}`;
+    attachCampaignFilters();
+    attachCreativeFilters();
+    renderFunnelMonthly();
+    renderTargetingTable();
+    renderPlacementTable();
+    // expand tables with >15 rows
+    ['camp-table-body','funnel-month-tbody','funnel-camp-tbody',
+     'placement-tbody','targeting-tbody','device-tbody','creative-tbody'].forEach(function(id) {
+      makeExpandable(id, 15);
+    });
+  } catch (e) {
+    document.getElementById('audit-page').innerHTML =
+      `<div class="error-msg">❌ Ошибка загрузки данных: ${e.message}<br><small>Убедитесь, что запустили: node scripts/build-analytics.js</small></div>`;
+  }
+}
+
+function buildAuditHTML() {
+  return [
+    s01_executive(),
+    s02_monthly(),
+    s03_campaigns(),
+    s04_messaging(),
+    s05_placement(),
+    s06_targeting(),
+    s07_device(),
+    s08_creative(),
+    s09_anomalies(),
+    s10_recommendations(),
+    s11_limitations(),
+    s12_summary(),
+  ].join('');
+}
+
+// ── 01 Executive Overview ─────────────────────────────────────────────────────
+function s01_executive() {
+  const K = D.account_kpis;
+  const S = D.audit_summary;
+  const bestCamp = S.campaign_summary.best_cost_per_msg;
+  const mr = S.messaging_funnel;
+
+  const execText = `
+    Аккаунт потратил <strong>${fmtC(K.spend)}</strong> за период <strong>${K.period.start} — ${K.period.end}</strong>.
+    За это время запущено <strong>${K.campaigns_with_spend} кампаний</strong>,
+    получено <strong>${fmtN(K.messaging_started)} диалогов</strong>,
+    средняя стоимость — <strong>${fmtC(K.cost_per_conversation)}/диалог</strong>.
+    Первый ответ менеджера: <strong>${fmtRate(K.first_reply_rate)}</strong> диалогов.
+    ${bestCamp ? `Лучшая кампания: <strong>"${bestCamp.name}"</strong> — <strong>${fmtC(bestCamp.cost)}/диалог</strong>.` : ''}
+    Основной канал: <strong>Instagram Direct</strong>.
+    Пиковые месяцы по эффективности: дек. 2025 ($2.20/диалог), фев. 2026 ($2.15), мар. 2026 ($2.32).
+    С апреля 2026 — резкий рост стоимости: $8–13/диалог вместо $2.
+  `;
+
+  return `
+<section>
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <span class="section-title">Общий обзор</span>
+    <span class="section-subtitle">${K.period.start} → ${K.period.end}</span>
+  </div>
+  <div class="section-body">
+    <div class="kpi-grid">
+      <div class="kpi-card accent">
+        <div class="kpi-label">Расходы</div>
+        <div class="kpi-value lg">${fmtC(K.spend)}</div>
+        <div class="kpi-sub">${K.campaigns_with_spend} кампаний с расходами</div>
+      </div>
+      <div class="kpi-card green">
+        <div class="kpi-label">Диалоги</div>
+        <div class="kpi-value lg">${fmtN(K.messaging_started)}</div>
+        <div class="kpi-sub">Начато (7-дневное окно)</div>
+      </div>
+      <div class="kpi-card green">
+        <div class="kpi-label">Стоимость / Диалог</div>
+        <div class="kpi-value lg">${fmtC(K.cost_per_conversation)}</div>
+        <div class="kpi-sub">1-й ответ: ${fmtRate(K.first_reply_rate)}</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Показы</div>
+        <div class="kpi-value">${fmtN(K.impressions)}</div>
+        <div class="kpi-sub">CPM: ${fmtC(K.cpm)}</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Клики</div>
+        <div class="kpi-value">${fmtN(K.clicks)}</div>
+        <div class="kpi-sub">CTR: ${fmtPct(K.ctr)}</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">CPC</div>
+        <div class="kpi-value">${fmtC(K.cpc)}</div>
+        <div class="kpi-sub">Клики по ссылке: ${fmtN(K.inline_link_clicks)}</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Кампании</div>
+        <div class="kpi-value">${K.campaigns_with_spend}</div>
+        <div class="kpi-sub">из ${K.campaigns_total} всего</div>
+      </div>
+      <div class="kpi-card orange">
+        <div class="kpi-label">% Ответов</div>
+        <div class="kpi-value">${fmtRate(K.replied_rate)}</div>
+        <div class="kpi-sub">Ответили / Начато</div>
+      </div>
+    </div>
+    <div class="exec-summary">${execText}</div>
+  </div>
+</section>`;
+}
+
+// ── 02 Performance Over Time ───────────────────────────────────────────────────
+let monthPeriodFilter = 'all'; // 'all' | 'year'
+
+function getMonthRows(filterPeriod) {
+  const months = D.monthly_performance.months;
+  const maxSpend = Math.max(...months.filter(m => !m.gap && m.spend).map(m => m.spend));
+  const rows = [];
+  for (const m of months) {
+    if (filterPeriod === 'year' && !isLastYear(m.month)) continue;
+    if (m.gap) {
+      rows.push(`<tr class="row-gap"><td colspan="10">↳ ${m.month} — нет активности (${m.gap_reason})</td></tr>`);
+      continue;
+    }
+    const isYr = isLastYear(m.month);
+    const partial = m.partial ? `<span class="badge badge-yellow" title="${m.partial_reason}">частичн.</span> ` : '';
+    const periodMark = !isYr ? `<span class="badge-period-all" style="margin-left:4px">ранний</span>` : '';
+    const vm = m.vs_prev_month;
+    const spDelta = vm ? delta(vm.spend_delta_pct) : '';
+    const msgDelta = vm && vm.messaging_delta !== null ? (vm.messaging_delta > 0 ? `<span class="delta-neg">+${vm.messaging_delta}</span>` : `<span class="delta-pos">${vm.messaging_delta}</span>`) : '';
+    const cmsD = vm && vm.cost_msg_delta_pct !== null ? delta(-vm.cost_msg_delta_pct) : '';
+    const msgStarted = m.messaging_started || 0;
+    const costMsg = m.cost_per_messaging_started;
+    const costCls = costMsg && costMsg < 3 ? 'style="color:var(--green);font-weight:700"' : costMsg && costMsg > 8 ? 'style="color:var(--red)"' : '';
+    rows.push(`
+      <tr class="${m.partial ? 'row-partial' : ''}">
+        <td>${partial}${m.month}${periodMark}</td>
+        <td class="num">${m.active_days || '—'}</td>
+        <td class="num">${fmtC(m.spend)} ${spDelta}</td>
+        <td class="num">${fmtN(m.impressions)}</td>
+        <td class="num">${fmtC(m.cpm)}</td>
+        <td class="num">${fmtPct(m.ctr)}</td>
+        <td class="num">${fmtC(m.cpc)}</td>
+        <td class="num">${msgStarted > 0 ? fmtN(msgStarted) : DASH} ${msgDelta}</td>
+        <td class="num" ${costCls}>${costMsg ? fmtC(costMsg) : DASH} ${cmsD}</td>
+        <td class="num">${m.campaigns_active || DASH}</td>
+      </tr>`);
+  }
+  return rows;
+}
+
+function renderMonthlyTable() {
+  document.getElementById('monthly-tbody').innerHTML = getMonthRows(monthPeriodFilter).join('');
+  document.querySelectorAll('[data-month-filter]').forEach(b =>
+    b.classList.toggle('active', b.dataset.monthFilter === monthPeriodFilter)
+  );
+}
+
+function s02_monthly() {
+  const months = D.monthly_performance.months;
+  const maxSpend = Math.max(...months.filter(m => !m.gap && m.spend).map(m => m.spend));
+  const bars = months.map(m => {
+    if (m.gap) return `<div class="bar-col"><div class="bar gap-bar" style="height:5px"></div></div>`;
+    const h = Math.round((m.spend / maxSpend) * 56);
+    const col = isLastYear(m.month) ? 'var(--accent)' : '#93c5fd';
+    return `<div class="bar-col"><div class="bar" style="height:${Math.max(h,3)}px;background:${col}" title="${m.month}: ${fmtC(m.spend)}${isLastYear(m.month)?'' : ' (ранний период)'}"></div></div>`;
+  });
+
+  return `
+<section>
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <span class="section-title">Динамика по месяцам</span>
+    <span class="section-subtitle">${D.monthly_performance.months.filter(m=>!m.gap).length} активных месяцев · ${pBadge('all')}</span>
+  </div>
+  <div class="section-body">
+    <div class="info-box">
+      Период <strong>май 2025 – авг 2026</strong>. Пропущенные месяцы без активности: июнь 2025 и сент. 2025.
+      <span class="badge-period-all">Ранний</span> май, июл, авг 2025 — голубые столбцы (малый бюджет).
+      <span class="badge-period-year">Основной</span> окт 2025 – авг 2026 — тёмные (96% всех расходов).
+    </div>
+    <div class="filter-bar">
+      <span class="filter-label">Показать:</span>
+      <button class="filter-btn active" data-month-filter="all" onclick="monthPeriodFilter='all';renderMonthlyTable()">Все месяцы</button>
+      <button class="filter-btn" data-month-filter="year" onclick="monthPeriodFilter='year';renderMonthlyTable()">С окт. 2025</button>
+    </div>
+    <div class="chart-wrap">
+      <div class="bar-chart">${bars.join('')}</div>
+      <div class="note">Тёмно-синие = основной период (окт 2025 – авг 2026, 11 мес.). Голубые = ранний период (май, июл, авг 2025). Серые = пустые месяцы (июнь 2025, сен 2025).</div>
+    </div>
+    <div class="table-wrap mt-8">
+      <table>
+        <thead><tr>
+          <th>Месяц</th><th class="num">Дни</th><th class="num">Расходы</th>
+          <th class="num">Показы</th><th class="num">CPM</th>
+          <th class="num">CTR</th><th class="num">CPC</th>
+          <th class="num">Диалоги</th><th class="num">Стоим./Диалог</th>
+          <th class="num">Кампании</th>
+        </tr></thead>
+        <tbody id="monthly-tbody">${getMonthRows('all').join('')}</tbody>
+      </table>
+    </div>
+    <p class="note mt-8">↑↓ к предыдущему месяцу. Зелёный = улучшение, красный = ухудшение. Стоимость/диалог: зелёный &lt;$3, красный &gt;$8.</p>
+    <div class="exec-summary mt-16">
+      Пик эффективности — фев–мар 2026: <strong>402 диалога</strong> из 939 (43%) за 2 месяца при $2.15–2.32/диалог.
+      С апреля 2026 — <strong>резкий скачок</strong>: $8.48 → $13.12 → $9.81 → $7.95 → $10.97/диалог — в 3-6 раз хуже. Причина не установлена, это главный приоритет (см. рекомендации).
+    </div>
+  </div>
+</section>`;
+}
+
+// ── 03 Campaign Performance ───────────────────────────────────────────────────
+let campFilterObj = 'ALL';
+let campFilterStatus = 'ALL';
+let campSort = { key: 'spend', dir: 'desc' };
+
+function getCampData() {
+  let data = D.campaign_performance.campaigns.filter(c => c.has_spend_data);
+  if (campFilterObj !== 'ALL') {
+    const objMap = {
+      MESSAGES: ['MESSAGES'],
+      TRAFFIC: ['LINK_CLICKS', 'OUTCOME_TRAFFIC'],
+      ENGAGEMENT: ['OUTCOME_ENGAGEMENT'],
+      SALES: ['OUTCOME_SALES'],
+      LEADS: ['OUTCOME_LEADS'],
+    };
+    data = data.filter(c => (objMap[campFilterObj] || []).includes(c.objective));
+  }
+  if (campFilterStatus === 'ACTIVE') data = data.filter(c => c.effective_status === 'ACTIVE');
+  if (campFilterStatus === 'PAUSED') data = data.filter(c => c.effective_status === 'PAUSED');
+
+  const key = campSort.key;
+  data.sort((a, b) => {
+    let va = a[key], vb = b[key];
+    if (typeof va === 'string' && typeof vb === 'string') {
+      return campSort.dir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
+    }
+    if (va === null || va === undefined) va = campSort.dir === 'asc' ? Infinity : -Infinity;
+    if (vb === null || vb === undefined) vb = campSort.dir === 'asc' ? Infinity : -Infinity;
+    return campSort.dir === 'asc' ? va - vb : vb - va;
+  });
+  return data;
+}
+
+function renderCampTable() {
+  const data = getCampData();
+  const rows = data.map(c => {
+    const isEng = c.objective === 'OUTCOME_ENGAGEMENT';
+    const hasMsgObj = ['MESSAGES','OUTCOME_LEADS','OUTCOME_SALES','OUTCOME_ENGAGEMENT'].includes(c.objective);
+    const msgVal = c.messaging_started > 0
+      ? `<strong>${fmtN(c.messaging_started)}</strong>`
+      : (hasMsgObj && c.messaging_started === 0 ? '<span class="tier-expensive">0</span>' : DASH);
+    const costMsg = c.cost_per_messaging_started;
+    const costCls = costMsg && costMsg < 2.5 ? 'style="color:var(--green);font-weight:700"' : costMsg && costMsg > 8 ? 'style="color:var(--red)"' : '';
+    const costDisp = costMsg ? `<span ${costCls}>${fmtC(costMsg)}</span>` : DASH;
+    const rowClass = c.efficiency_tier === 'best' ? 'row-best' : c.efficiency_tier === 'good' ? 'row-good' : '';
+    const engMark = isEng ? ' <span class="badge-primary">●</span>' : '';
+    const nameStr = `<span class="${c.efficiency_tier === 'best' ? 'camp-name-strong' : ''}">${trunc(c.campaign_name, 44)}</span>`;
+    return `
+      <tr class="${rowClass}${isEng ? ' engagement-row' : ''}">
+        <td>${nameStr}${engMark}${c.orphan ? ' <span class="badge badge-gray">удалена</span>' : ''}</td>
+        <td>${objBadge(c.objective)}</td>
+        <td class="num">${fmtC(c.spend)}</td>
+        <td class="num">${msgVal}</td>
+        <td class="num">${costDisp}</td>
+        <td class="num">${fmtPct(c.ctr)}</td>
+        <td class="num">${fmtC(c.cpc)}</td>
+        <td class="num">${fmtC(c.cpm)}</td>
+        <td>${statusBadge(c.effective_status)}</td>
+        <td>${tierLabel(c.efficiency_tier)}</td>
+      </tr>`;
+  });
+
+  const p = D.campaign_performance.messaging_cost_percentiles;
+  const legend = `<div class="note">Уровни по стоимости/диалог (P25/P50/P75 по кампаниям с диалогами): Лучшая ≤$${p.p25} · Хорошая ≤$${p.p50} · Средняя ≤$${p.p75} · Дорогая >$${p.p75}.
+  <span class="badge-primary">●</span> = цель «Вовлечённость» (OUTCOME_ENGAGEMENT) — основной источник диалогов.
+  Зелёный фон строки = топ-кампании, жёлто-зелёный = хорошие кампании.</div>`;
+
+  document.getElementById('camp-table-body').innerHTML = rows.join('') || '<tr><td colspan="10" style="text-align:center;padding:24px;color:var(--dim)">Нет кампаний, соответствующих фильтру</td></tr>';
+  document.getElementById('camp-count').textContent = `${data.length} кампаний`;
+  if (document.getElementById('camp-legend')) document.getElementById('camp-legend').innerHTML = legend;
+}
+
+function s03_campaigns() {
+  const total = D.campaign_performance.campaigns.filter(c => c.has_spend_data).length;
+  return `
+<section>
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <span class="section-title">Результаты по кампаниям</span>
+    <span class="section-subtitle" id="camp-count">${total} кампаний · ${pBadge('all')}</span>
+  </div>
+  <div class="section-body">
+    <div class="info-box">
+      <span class="badge-primary">OUTCOME_ENGAGEMENT</span> — <strong>22 кампании</strong>, основной источник диалогов в Direct. Кампании «Трафик» (30 шт.) — буст постов, диалоги косвенные.
+    </div>
+    <div class="filter-bar">
+      <span class="filter-label">Цель:</span>
+      ${[['ALL','Все'],['ENGAGEMENT','★ Вовлечённость'],['TRAFFIC','Трафик'],['SALES','Продажи'],['MESSAGES','Диалоги (старый)'],['LEADS','Лиды']].map(([val,label]) =>
+        `<button class="filter-btn ${val==='ALL'?'active':''}" data-filter-obj="${val}" onclick="setCampFilter('obj','${val}')">${label}</button>`).join('')}
+      <div class="filter-sep"></div>
+      <span class="filter-label">Статус:</span>
+      ${[['ALL','Все'],['ACTIVE','Активные'],['PAUSED','Пауза']].map(([val,label]) =>
+        `<button class="filter-btn ${val==='ALL'?'active':''}" data-filter-status="${val}" onclick="setCampFilter('status','${val}')">${label}</button>`).join('')}
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th onclick="setCampSort('campaign_name')" data-sort-key="campaign_name">Кампания</th>
+          <th>Цель</th>
+          <th class="num" onclick="setCampSort('spend')" data-sort-key="spend">Расходы</th>
+          <th class="num" onclick="setCampSort('messaging_started')" data-sort-key="messaging_started">Диалоги</th>
+          <th class="num" onclick="setCampSort('cost_per_messaging_started_asc')" data-sort-key="cost_per_messaging_started_asc">Стоим./Диалог</th>
+          <th class="num" onclick="setCampSort('ctr')" data-sort-key="ctr">CTR</th>
+          <th class="num" onclick="setCampSort('cpc')" data-sort-key="cpc">CPC</th>
+          <th class="num" onclick="setCampSort('cpm')" data-sort-key="cpm">CPM</th>
+          <th>Статус</th><th>Уровень</th>
+        </tr></thead>
+        <tbody id="camp-table-body"></tbody>
+      </table>
+    </div>
+    <div id="camp-legend" class="mt-8"></div>
+    <div class="exec-summary mt-16">
+      Ключевые кампании — <strong>22 с целью «Вовлечённость»</strong>: именно они настроены на диалоги в Direct. Разброс огромный: лучшие дают $1.05–$1.20/диалог, худшие — >$50.
+      Фильтруйте по «★ Вовлечённость» + сортируйте по «Стоим./Диалог» — это готовый план: масштабировать лучшие, паузить дорогие.
+    </div>
+  </div>
+</section>`;
+}
+
+function attachCampaignFilters() {
+  renderCampTable();
+}
+
+window.setCampFilter = function(type, val) {
+  if (type === 'obj') campFilterObj = val;
+  if (type === 'status') campFilterStatus = val;
+  document.querySelectorAll('[data-filter-obj]').forEach(b =>
+    b.classList.toggle('active', b.dataset.filterObj === campFilterObj)
+  );
+  document.querySelectorAll('[data-filter-status]').forEach(b =>
+    b.classList.toggle('active', b.dataset.filterStatus === campFilterStatus)
+  );
+  renderCampTable();
+};
+
+window.setCampSort = function(key) {
+  const realKey = key === 'cost_per_messaging_started_asc' ? 'cost_per_messaging_started' : key;
+  const forceAsc = key === 'cost_per_messaging_started_asc';
+  if (forceAsc) {
+    campSort = { key: realKey, dir: 'asc' };
+  } else if (campSort.key === realKey) {
+    campSort.dir = campSort.dir === 'desc' ? 'asc' : 'desc';
+  } else {
+    campSort = { key: realKey, dir: 'desc' };
+  }
+  document.querySelectorAll('th[data-sort-key]').forEach(th => {
+    th.classList.remove('th-asc', 'th-desc');
+    if (th.dataset.sortKey === key || th.dataset.sortKey === realKey) {
+      th.classList.add(campSort.dir === 'asc' ? 'th-asc' : 'th-desc');
+    }
+  });
+  renderCampTable();
+};
+
+// ── 04 Messaging Funnel ───────────────────────────────────────────────────────
+let funnelPeriodFilter = 'all';
+
+function getFunnelMonthRows(filterPeriod) {
+  return D.messaging_funnel.monthly_funnel
+    .filter(m => filterPeriod === 'all' || isLastYear(m.month))
+    .map(m => {
+      const yearMark = isLastYear(m.month)
+        ? '' : ' <span style="font-size:10px;color:var(--accent)">ранний</span>';
+      const costCls = m.cost_per_messaging_started && m.cost_per_messaging_started < 3
+        ? ' style="color:var(--green);font-weight:700"'
+        : m.cost_per_messaging_started && m.cost_per_messaging_started > 8
+        ? ' style="color:var(--red)"' : '';
+      return `
+        <tr${isLastYear(m.month) ? '' : ' style="opacity:.7"'}>
+          <td>${m.month}${yearMark}</td>
+          <td class="num">${fmtN(m.messaging_started)}</td>
+          <td class="num">${fmtN(m.messaging_first_reply)}</td>
+          <td class="num">${fmtN(m.messaging_replied)}</td>
+          <td class="num">${fmtRate(m.first_reply_rate)}</td>
+          <td class="num">${fmtRate(m.replied_rate)}</td>
+          <td class="num"${costCls}>${fmtC(m.cost_per_messaging_started)}</td>
+          <td class="num">${fmtC(m.spend)}</td>
+        </tr>`;
+    });
+}
+
+function renderFunnelMonthly() {
+  const el = document.getElementById('funnel-month-tbody');
+  if (!el) return;
+  el.innerHTML = getFunnelMonthRows(funnelPeriodFilter).join('') || '<tr><td colspan="8" style="text-align:center;padding:16px;color:var(--dim)">Нет данных</td></tr>';
+  document.querySelectorAll('[data-funnel-filter]').forEach(b =>
+    b.classList.toggle('active', b.dataset.funnelFilter === funnelPeriodFilter));
+}
+
+function s04_messaging() {
+  const F = D.messaging_funnel.account_funnel;
+  const max = F.total_messaging_connection;
+
+  const steps = [
+    { label: 'Всего контактов', val: F.total_messaging_connection, rate: null, color: '#94a3b8' },
+    { label: 'Начато диалогов', val: F.messaging_started, rate: fmtRate(F.messaging_started/F.total_messaging_connection), color: '#3b82f6' },
+    { label: 'Первый ответ', val: F.messaging_first_reply, rate: fmtRate(F.first_reply_rate), color: '#2563eb' },
+    { label: 'Ответили', val: F.messaging_replied, rate: fmtRate(F.replied_rate), color: '#1d4ed8' },
+    { label: 'Заказы', val: F.messaging_order, rate: fmtRate(F.order_rate), color: '#1e40af' },
+  ];
+
+  const funnelHtml = steps.map((s, i) => {
+    const barH = Math.round((s.val / max) * 100);
+    return `
+      <div class="funnel-step">
+        <div class="funnel-bar-wrap">
+          <div class="funnel-bar" style="height:${barH}%;background:${s.color}"></div>
+        </div>
+        <div class="funnel-value">${fmtN(s.val)}</div>
+        <div class="funnel-label">${s.label}</div>
+        ${s.rate ? `<div class="funnel-rate">${s.rate}</div>` : ''}
+        ${i === 1 ? `<div class="funnel-cost">${fmtC(F.cost_per_conversation)}/диалог</div>` : ''}
+      </div>
+      ${i < steps.length-1 ? '<div class="funnel-step" style="flex:0;justify-content:flex-end;padding-bottom:60px;color:#cbd5e1;font-size:20px">→</div>' : ''}
+    `;
+  }).join('');
+
+  // Top campaigns
+  const topCamps = D.messaging_funnel.campaign_funnel.filter(c => c.messaging_started > 0).slice(0, 10);
+  const cRows = topCamps.map(c => {
+    const isEng = c.objective === 'OUTCOME_ENGAGEMENT';
+    return `
+    <tr${isEng ? ' class="engagement-row"' : ''}>
+      <td>${isEng ? '● ' : ''}<span style="font-size:12px">${trunc(c.campaign_name, 32)}</span></td>
+      <td>${objBadge(c.objective)}</td>
+      <td class="num">${fmtN(c.messaging_started)}</td>
+      <td class="num">${fmtRate(c.first_reply_rate)}</td>
+      <td class="num">${fmtRate(c.replied_rate)}</td>
+      <td class="num">${fmtC(c.cost_per_messaging_started)}</td>
+    </tr>`;
+  }).join('');
+
+  return `
+<section>
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <span class="section-title">Воронка диалогов</span>
+    <span class="section-subtitle">KPI: messaging_conversation_started_7d · ${pBadge('all')}</span>
+  </div>
+  <div class="section-body">
+    <div class="info-box" style="margin-bottom:10px">
+      Весь период: <strong>939 диалогов · $3,933 · $4.19/диалог</strong>. Атрибуция: 7 дней по клику.
+    </div>
+    <div class="funnel">${funnelHtml}</div>
+    <p class="note">⚠ «Всего контактов» и «Начато диалогов» — разные метрики. Заказов: 6 — статистически незначимо. Атрибуция: 7 дней.</p>
+    <div class="collapsible-section mt-16">
+      <div class="collapsible-header open" onclick="toggleCollapsible(this)">
+        <span class="collapsible-title">
+          Диалоги по месяцам
+          <button class="filter-btn active" data-funnel-filter="all" style="font-size:11px;padding:2px 9px"
+            onclick="event.stopPropagation();funnelPeriodFilter='all';renderFunnelMonthly()">Все</button>
+          <button class="filter-btn" data-funnel-filter="year" style="font-size:11px;padding:2px 9px"
+            onclick="event.stopPropagation();funnelPeriodFilter='year';renderFunnelMonthly()">С окт. 2025</button>
+        </span>
+        <span class="collapsible-chevron open">▲</span>
+      </div>
+      <div class="collapsible-body open">
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th>Месяц</th><th class="num">Начато</th><th class="num">1-й ответ</th><th class="num">Ответили</th>
+              <th class="num">% 1-й отв.</th><th class="num">% ответили</th><th class="num">Стоим./Диалог</th><th class="num">Расходы</th>
+            </tr></thead>
+            <tbody id="funnel-month-tbody">${getFunnelMonthRows('all').join('')}</tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="collapsible-section" style="margin-top:8px">
+      <div class="collapsible-header" onclick="toggleCollapsible(this)">
+        <span class="collapsible-title">Топ кампании по диалогам</span>
+        <span class="collapsible-chevron">▲</span>
+      </div>
+      <div class="collapsible-body">
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th>Кампания</th><th>Цель</th><th class="num">Начато</th>
+              <th class="num">% 1-й отв.</th><th class="num">% ответили</th><th class="num">Стоим./Диалог</th>
+            </tr></thead>
+            <tbody id="funnel-camp-tbody">${cRows}</tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="exec-summary mt-16">
+      ${fmtN(D.messaging_funnel.account_funnel.total_messaging_connection)} контактов → 939 начатых диалогов → ${fmtN(D.messaging_funnel.account_funnel.messaging_first_reply)} первых ответов.
+      Ответ на первое сообщение — <strong>${fmtRate(D.messaging_funnel.account_funnel.first_reply_rate)}</strong>. Если ниже 70% — проблема в скорости ответа менеджера, не в рекламе.
+      <strong>С апреля 2026</strong> стоимость диалога резко выросла (выделено красным) — главный приоритет.
+    </div>
+  </div>
+</section>`;
+}
+
+// ── 05 Placement Analysis ─────────────────────────────────────────────────────
+let placementSortKey = 'spend';
+let placementSortDir = -1;
+
+function renderPlacementTable() {
+  let data = [...D.breakdown_analysis.by_placement.data];
+  data.sort((a, b) => {
+    const av = a[placementSortKey] ?? -1;
+    const bv = b[placementSortKey] ?? -1;
+    return (av - bv) * placementSortDir;
+  });
+  const rows = data.map(p => {
+    const platform = p.publisher_platform;
+    const pos = p.platform_position;
+    const isIG = platform === 'instagram';
+    const label = (isIG ? '📷 ' : '📘 ') + platform.charAt(0).toUpperCase() + platform.slice(1) + ' / ' + pos.replace(/_/g,' ');
+    const msgAct = p.messaging_started > 0 ? fmtN(p.messaging_started) : DASH;
+    const costMsg = p.cost_per_messaging_started ? fmtC(p.cost_per_messaging_started) : DASH;
+    return `
+      <tr>
+        <td><span style="font-size:12.5px">${label}</span></td>
+        <td class="num">${fmtC(p.spend)}</td>
+        <td class="num">${p.spend_share_pct !== null ? p.spend_share_pct.toFixed(1)+'%' : DASH}</td>
+        <td class="num">${fmtN(p.impressions)}</td>
+        <td class="num">${fmtC(p.cpm)}</td>
+        <td class="num">${fmtPct(p.ctr)}</td>
+        <td class="num">${fmtC(p.cpc)}</td>
+        <td class="num">${msgAct}</td>
+        <td class="num">${costMsg}</td>
+      </tr>`;
+  });
+  const el = document.getElementById('placement-tbody');
+  if (el) el.innerHTML = rows.join('') || '<tr><td colspan="9" style="text-align:center;padding:16px;color:var(--dim)">Нет данных</td></tr>';
+  document.querySelectorAll('[data-placement-sort]').forEach(b =>
+    b.classList.toggle('active', b.dataset.placementSort === placementSortKey));
+}
+
+window.setPlacementSort = function(key) {
+  if (placementSortKey === key) { placementSortDir *= -1; }
+  else { placementSortKey = key; placementSortDir = -1; }
+  renderPlacementTable();
+};
+
+function s05_placement() {
+  const data = D.breakdown_analysis.by_placement.data;
+  return `
+<section>
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <span class="section-title">Анализ плейсментов</span>
+    <span class="section-subtitle">${data.length} плейсментов · ${pBadge('all')}</span>
+  </div>
+  <div class="section-body">
+    <div class="filter-bar" style="margin-bottom:10px">
+      <span style="font-size:11px;color:var(--text-muted);align-self:center">Сортировка:</span>
+      ${[['spend','По расходам'],['messaging_started','По диалогам'],['cpm','По CPM'],['ctr','По CTR'],['cost_per_messaging_started','По стоим./диалог']].map(([v,l]) =>
+        `<button class="filter-btn${v==='spend'?' active':''}" data-placement-sort="${v}" onclick="setPlacementSort('${v}')">${l}</button>`).join('')}
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Плейсмент</th><th class="num">Расходы</th><th class="num">Доля</th>
+          <th class="num">Показы</th><th class="num">CPM</th><th class="num">CTR</th><th class="num">CPC</th>
+          <th class="num">Диалоги</th><th class="num">Стоим./Диалог</th>
+        </tr></thead>
+        <tbody id="placement-tbody">${data.sort((a,b)=>b.spend-a.spend).map(p => {
+          const platform = p.publisher_platform;
+          const pos = p.platform_position;
+          const isIG = platform === 'instagram';
+          const label = (isIG ? '📷 ' : '📘 ') + platform.charAt(0).toUpperCase() + platform.slice(1) + ' / ' + pos.replace(/_/g,' ');
+          const msgAct = p.messaging_started > 0 ? fmtN(p.messaging_started) : DASH;
+          const costMsg = p.cost_per_messaging_started ? fmtC(p.cost_per_messaging_started) : DASH;
+          return `<tr>
+            <td><span style="font-size:12.5px">${label}</span></td>
+            <td class="num">${fmtC(p.spend)}</td>
+            <td class="num">${p.spend_share_pct !== null ? p.spend_share_pct.toFixed(1)+'%' : DASH}</td>
+            <td class="num">${fmtN(p.impressions)}</td>
+            <td class="num">${fmtC(p.cpm)}</td>
+            <td class="num">${fmtPct(p.ctr)}</td>
+            <td class="num">${fmtC(p.cpc)}</td>
+            <td class="num">${msgAct}</td>
+            <td class="num">${costMsg}</td>
+          </tr>`;
+        }).join('')}</tbody>
+      </table>
+    </div>
+    <p class="note mt-8">Диалоги в разбивке по плейсментам могут занижать показатель относительно уровня кампании из-за особенностей агрегации Meta.</p>
+    <div class="exec-summary mt-16">
+      <strong>Instagram Feed</strong> — основной плейсмент, самый высокий CTR. Facebook-плейсменты добавлены автоматически Meta, доля расходов минимальна.
+      <strong>Stories</strong>: более высокий CPM из-за автообрезки квадратных постов — помогут отдельные вертикальные (9:16) креативы.
+    </div>
+  </div>
+</section>`;
+}
+
+// ── 06 Audience / Targeting ───────────────────────────────────────────────────
+let targetingGenderFilter = 'ALL';
+let targetingSortKey = 'spend';
+let targetingSortDir = -1;
+
+function renderTargetingTable() {
+  const T = D.targeting_analysis;
+  const ageData = (T.age_gender_performance && T.age_gender_performance.data) || [];
+  let rows = ageData.filter(r => r.spend > 5);
+  if (targetingGenderFilter !== 'ALL') rows = rows.filter(r => r.gender === targetingGenderFilter);
+  rows.sort((a, b) => {
+    const av = a[targetingSortKey] ?? -1;
+    const bv = b[targetingSortKey] ?? -1;
+    return (av - bv) * targetingSortDir;
+  });
+  const html = rows.map(r => {
+    const msgAct = r.messaging_started > 0 ? fmtN(r.messaging_started) : DASH;
+    const costMsg = r.cost_per_messaging_started ? fmtC(r.cost_per_messaging_started) : DASH;
+    const genderLabel = r.gender === 'female' ? '♀ Женщины' : r.gender === 'male' ? '♂ Мужчины' : r.gender;
+    const genderCls = r.gender === 'female' ? 'style="color:#db2777"' : r.gender === 'male' ? 'style="color:#2563eb"' : '';
+    return `
+      <tr>
+        <td>${r.age}</td>
+        <td ${genderCls}>${genderLabel}</td>
+        <td class="num">${fmtC(r.spend)}</td>
+        <td class="num">${fmtN(r.impressions)}</td>
+        <td class="num">${fmtC(r.cpm)}</td>
+        <td class="num">${fmtPct(r.ctr)}</td>
+        <td class="num">${fmtC(r.cpc)}</td>
+        <td class="num">${msgAct}</td>
+        <td class="num">${costMsg}</td>
+      </tr>`;
+  }).join('') || '<tr><td colspan="9" style="text-align:center;padding:16px;color:var(--dim)">Нет данных</td></tr>';
+  const el = document.getElementById('targeting-tbody');
+  if (el) el.innerHTML = html;
+  document.querySelectorAll('[data-tg-gender]').forEach(b =>
+    b.classList.toggle('active', b.dataset.tgGender === targetingGenderFilter));
+  document.querySelectorAll('[data-tg-sort]').forEach(b =>
+    b.classList.toggle('active', b.dataset.tgSort === targetingSortKey));
+}
+
+window.setTargetingFilter = function(type, val) {
+  if (type === 'gender') targetingGenderFilter = val;
+  renderTargetingTable();
+};
+
+window.setTargetingSort = function(key) {
+  if (targetingSortKey === key) { targetingSortDir *= -1; }
+  else { targetingSortKey = key; targetingSortDir = -1; }
+  renderTargetingTable();
+};
+
+function s06_targeting() {
+  const T = D.targeting_analysis;
+  const P = T.audience_patterns;
+
+  const patternsHtml = `
+    <div class="kpi-grid" style="grid-template-columns:repeat(auto-fill,minmax(130px,1fr))">
+      <div class="kpi-card"><div class="kpi-label">Всего адсетов</div><div class="kpi-value">${T.adset_totals}</div></div>
+      <div class="kpi-card"><div class="kpi-label">Широкие (18-65)</div><div class="kpi-value">${P.broad}</div><div class="kpi-sub">без интересов</div></div>
+      <div class="kpi-card"><div class="kpi-label">По интересам</div><div class="kpi-value">${P.interest_based}</div></div>
+      <div class="kpi-card"><div class="kpi-label">Похожие (LAL)</div><div class="kpi-value">${P.lookalike}</div></div>
+      <div class="kpi-card"><div class="kpi-label">Кастомные</div><div class="kpi-value">${P.custom_audience}</div></div>
+      <div class="kpi-card"><div class="kpi-label">Advantage+</div><div class="kpi-value">${P.advantage_plus}</div></div>
+    </div>`;
+
+  const attrHtml = Object.entries(T.attribution_windows).map(([k,v]) =>
+    `<span class="badge badge-gray" style="margin:2px">${k}: ${v}</span>`).join(' ');
+
+  const optHtml = Object.entries(T.optimization_goals).sort((a,b)=>b[1]-a[1]).map(([k,v]) =>
+    `<span class="badge badge-blue" style="margin:2px">${k}: ${v}</span>`).join(' ');
+
+  return `
+<section>
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <span class="section-title">Аудитория / Таргетинг</span>
+    <span class="section-subtitle">${T.adset_totals} адсетов · ${pBadge('all')}</span>
+  </div>
+  <div class="section-body">
+    <div style="margin-bottom:14px">
+      <strong style="display:block;margin-bottom:8px;font-size:13px">Паттерны таргетинга адсетов</strong>
+      ${patternsHtml}
+      <div class="mt-8"><span class="filter-label">Окна атрибуции: </span>${attrHtml}</div>
+      <div class="mt-8"><span class="filter-label">Цели оптимизации: </span>${optHtml}</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap">
+      <strong style="font-size:13px">Возраст × Пол</strong>
+      ${pBadge('all')}
+      <span style="font-size:11px;color:var(--text-muted)">Фильтр:</span>
+      ${[['ALL','Все'],['female','♀ Женщины'],['male','♂ Мужчины']].map(([v,l]) =>
+        `<button class="filter-btn${v==='ALL'?' active':''}" data-tg-gender="${v}" onclick="setTargetingFilter('gender','${v}')">${l}</button>`).join('')}
+      <span style="font-size:11px;color:var(--text-muted);margin-left:8px">Сортировка:</span>
+      ${[['spend','Расходы'],['messaging_started','Диалоги'],['cpm','CPM'],['cost_per_messaging_started','Стоим./Диалог']].map(([v,l]) =>
+        `<button class="filter-btn${v==='spend'?' active':''}" data-tg-sort="${v}" onclick="setTargetingSort('${v}')">${l}</button>`).join('')}
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Возраст</th><th>Пол</th><th class="num">Расходы</th>
+          <th class="num">Показы</th><th class="num">CPM</th><th class="num">CTR</th><th class="num">CPC</th>
+          <th class="num">Диалоги</th><th class="num">Стоим./Диалог</th>
+        </tr></thead>
+        <tbody id="targeting-tbody"></tbody>
+      </table>
+    </div>
+    <p class="note mt-8">
+      ⚠ Данные отражают корреляцию, не причинно-следственную связь. Порог конфиденциальности Meta скрывает диалоги малых сегментов (— в таблице).
+    </p>
+    <div class="exec-summary mt-16">
+      <strong>${P.broad} из ${T.adset_totals} адсетов</strong> — широкий таргетинг (18-65 без интересов). Только <strong>${P.lookalike} адсетов</strong> используют похожие аудитории (LAL) — это главный недоиспользованный инструмент. Загрузив CRM-базу клиентов → создать LAL 1% → потенциальное снижение стоимости диалога на 20-40%.
+    </div>
+  </div>
+</section>`;
+}
+
+// ── 07 Device Performance ─────────────────────────────────────────────────────
+function s07_device() {
+  const data = D.breakdown_analysis.by_device.data;
+  const rows = data.map(d => {
+    const msgAct = d.messaging_started > 0 ? fmtN(d.messaging_started) : DASH;
+    const costMsg = d.cost_per_messaging_started ? fmtC(d.cost_per_messaging_started) : DASH;
+    return `
+      <tr>
+        <td>${d.impression_device}</td>
+        <td class="num">${fmtC(d.spend)}</td>
+        <td class="num">${d.spend_share_pct !== null ? d.spend_share_pct.toFixed(1)+'%' : DASH}</td>
+        <td class="num">${fmtN(d.impressions)}</td>
+        <td class="num">${fmtC(d.cpm)}</td>
+        <td class="num">${fmtPct(d.ctr)}</td>
+        <td class="num">${fmtC(d.cpc)}</td>
+        <td class="num">${msgAct}</td>
+        <td class="num">${costMsg}</td>
+      </tr>`;
+  });
+  return `
+<section>
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <span class="section-title">Устройства</span>
+    <span class="section-subtitle">${data.length} устройств</span>
+  </div>
+  <div class="section-body">
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Устройство</th><th class="num">Расходы</th><th class="num">Доля</th>
+          <th class="num">Показы</th><th class="num">CPM</th><th class="num">CTR</th><th class="num">CPC</th>
+          <th class="num">Диалоги</th><th class="num">Стоим./Диалог</th>
+        </tr></thead>
+        <tbody>${rows.join('')}</tbody>
+      </table>
+    </div>
+    <p class="note mt-8">iPhone: ~54% расходов. Android: ~46%. Desktop: &lt;1%. Диалоги по устройствам взяты из breakdown_device (action-данные).</p>
+    <div class="exec-summary mt-16">
+      99%+ трафика — мобильный (iPhone ~54%, Android ~46%). Все рекламные материалы должны быть в <strong>мобильном формате</strong>: 9:16 для Stories/Reels, квадрат для Feed.
+      iOS-конверсии могут быть недоатрибутированы из-за Apple ATT — учитывайте это при сравнении платформ.
+    </div>
+  </div>
+</section>`;
+}
+
+// ── 08 Creative Performance ───────────────────────────────────────────────────
+let creativeLimit = 50;
+let creativeFilterFormat = 'ALL';
+let creativeFilterCTA = 'ALL';
+let creativeSortKey = 'spend';
+let creativeSortDir = -1;
+
+const ctaLabels = {
+  'VIEW_INSTAGRAM_PROFILE': 'Профиль Instagram',
+  'WHATSAPP_MESSAGE': 'WhatsApp',
+  'INSTAGRAM_MESSAGE': 'Instagram Direct',
+  'LEARN_MORE': 'Подробнее',
+  'CONTACT_US': 'Связаться',
+  'MESSAGE_PAGE': 'Написать',
+  'NO_BUTTON': '—',
+};
+
+function renderCreativeTable() {
+  let all = D.creative_performance.ads.filter(a => a.has_spend_data);
+  if (creativeFilterFormat !== 'ALL') all = all.filter(a => a.format === creativeFilterFormat);
+  if (creativeFilterCTA !== 'ALL') all = all.filter(a => (a.cta_type || 'none') === creativeFilterCTA);
+  all.sort((a, b) => {
+    let av = a[creativeSortKey] ?? -1;
+    let bv = b[creativeSortKey] ?? -1;
+    return (av - bv) * creativeSortDir;
+  });
+  const data = creativeLimit >= 9999 ? all : all.slice(0, creativeLimit);
+  const rows = data.map(a => {
+    const msgVal = a.messaging_started > 0 ? fmtN(a.messaging_started) : DASH;
+    const costMsg = a.cost_per_messaging_started ? fmtC(a.cost_per_messaging_started) : DASH;
+    const costCls = a.cost_per_messaging_started && a.cost_per_messaging_started < 2.5 ? ' style="color:var(--green);font-weight:700"'
+                  : a.cost_per_messaging_started && a.cost_per_messaging_started > 8 ? ' style="color:var(--red)"' : '';
+    const formatBadge = a.format === 'video'
+      ? '<span class="badge badge-purple">Видео</span>'
+      : '<span class="badge badge-gray">Изображение</span>';
+    const ctaKey = a.cta_type || 'none';
+    const ctaLabel = ctaLabels[ctaKey] || ctaKey.replace(/_/g,' ');
+    const ctaBadge = a.cta_type ? `<span class="badge badge-blue" style="font-size:10px">${ctaLabel}</span>` : DASH;
+    const dupFlag = a.is_duplicate_creative ? ' <span class="badge badge-orange" title="Creative ID используется несколькими объявлениями">дубль</span>' : '';
+    const adLabel = a.ad_name.startsWith('Публикация в Instagram')
+      ? '📷 ' + trunc(a.ad_name.replace('Публикация в Instagram: ','').replace('Публикация в Instagram','[пост]'), 32)
+      : trunc(a.ad_name, 32);
+    return `
+      <tr>
+        <td><span style="font-size:12px">${adLabel}</span>${dupFlag}</td>
+        <td><span style="font-size:11px;color:var(--text-muted)">${trunc(a.campaign_name, 24)}</span></td>
+        <td>${formatBadge}</td>
+        <td>${ctaBadge}</td>
+        <td class="num">${fmtC(a.spend)}</td>
+        <td class="num">${fmtN(a.impressions)}</td>
+        <td class="num">${fmtC(a.cpm)}</td>
+        <td class="num">${fmtPct(a.ctr)}</td>
+        <td class="num">${fmtC(a.cpc)}</td>
+        <td class="num">${msgVal}</td>
+        <td class="num"${costCls}>${costMsg}</td>
+        <td class="num">${a.active_months || DASH}</td>
+      </tr>`;
+  });
+  const moreBtn = all.length > creativeLimit
+    ? `<button class="filter-btn" onclick="showAllCreative()" style="margin-top:8px">Показать все ${all.length} объявлений</button>` : '';
+  document.getElementById('creative-body').innerHTML = rows.join('') || '<tr><td colspan="12" style="text-align:center;padding:24px;color:var(--dim)">Нет данных</td></tr>';
+  if (document.getElementById('creative-more')) document.getElementById('creative-more').innerHTML = moreBtn;
+}
+
+window.setCreativeFilter = function(type, val) {
+  if (type === 'format') creativeFilterFormat = val;
+  if (type === 'cta') creativeFilterCTA = val;
+  creativeLimit = 50;
+  document.querySelectorAll('[data-creative-format]').forEach(b =>
+    b.classList.toggle('active', b.dataset.creativeFormat === creativeFilterFormat));
+  document.querySelectorAll('[data-creative-cta]').forEach(b =>
+    b.classList.toggle('active', b.dataset.creativeCta === creativeFilterCTA));
+  renderCreativeTable();
+};
+
+window.setCreativeSort = function(key) {
+  if (creativeSortKey === key) { creativeSortDir *= -1; }
+  else { creativeSortKey = key; creativeSortDir = -1; }
+  document.querySelectorAll('[data-creative-sort]').forEach(b =>
+    b.classList.toggle('active', b.dataset.creativeSort === key));
+  renderCreativeTable();
+};
+
+function s08_creative() {
+  const total = D.creative_performance.ads_with_spend;
+  const dupCount = D.creative_performance.duplicate_creative_ids.length;
+  const ads = D.creative_performance.ads.filter(a => a.has_spend_data);
+  const videoCount = ads.filter(a => a.format === 'video').length;
+  const imgCount = ads.filter(a => a.format === 'image').length;
+  const igBoostCount = ads.filter(a => a.ad_name.startsWith('Публикация в Instagram')).length;
+  return `
+<section>
+  <div class="section-header">
+    <span class="section-num">08</span>
+    <span class="section-title">Эффективность креативов</span>
+    <span class="section-subtitle">${total} объявлений · ${dupCount} дублирующихся ID · ${pBadge('all')}</span>
+  </div>
+  <div class="section-body">
+    <div class="info-box" style="margin-bottom:10px">
+      <strong>${igBoostCount} из ${total}</strong> объявлений — буст постов Instagram. ${videoCount} видео · ${imgCount} изображений. Зелёный цвет = &lt;$2.50/диалог, красный = &gt;$8.
+    </div>
+    <div class="filter-bar" style="flex-wrap:wrap;gap:6px">
+      <span style="font-size:11px;color:var(--text-muted);align-self:center">Формат:</span>
+      ${[['ALL','Все форматы'],['video','Видео'],['image','Изображение']].map(([v,l]) =>
+        `<button class="filter-btn${v==='ALL'?' active':''}" data-creative-format="${v}" onclick="setCreativeFilter('format','${v}')">${l}</button>`).join('')}
+      <span style="font-size:11px;color:var(--text-muted);align-self:center;margin-left:8px">CTA:</span>
+      ${[['ALL','Все CTA'],['VIEW_INSTAGRAM_PROFILE','Профиль Instagram'],['WHATSAPP_MESSAGE','WhatsApp'],['INSTAGRAM_MESSAGE','Insta Direct'],['LEARN_MORE','Подробнее']].map(([v,l]) =>
+        `<button class="filter-btn${v==='ALL'?' active':''}" data-creative-cta="${v}" onclick="setCreativeFilter('cta','${v}')">${l}</button>`).join('')}
+      <span style="font-size:11px;color:var(--text-muted);align-self:center;margin-left:8px">Сортировка:</span>
+      ${[['spend','По расходам'],['messaging_started','По диалогам'],['cost_per_messaging_started','По стоим./диалог'],['impressions','По показам']].map(([v,l]) =>
+        `<button class="filter-btn${v==='spend'?' active':''}" data-creative-sort="${v}" onclick="setCreativeSort('${v}')">${l}</button>`).join('')}
+    </div>
+    <div class="table-wrap" style="margin-top:10px">
+      <table>
+        <thead><tr>
+          <th>Объявление</th><th>Кампания</th><th>Формат</th><th>CTA</th>
+          <th class="num">Расходы</th><th class="num">Показы</th><th class="num">CPM</th>
+          <th class="num">CTR</th><th class="num">CPC</th>
+          <th class="num">Диалоги</th><th class="num">Стоим./Диалог</th><th class="num">Мес.</th>
+        </tr></thead>
+        <tbody id="creative-body"></tbody>
+      </table>
+    </div>
+    <div id="creative-more"></div>
+    <div class="exec-summary mt-16">
+      <strong>${igBoostCount} из ${total} объявлений</strong> — буст Instagram-постов. Специально созданных рекламных креативов почти нет. CTA «Профиль Instagram» ведёт на профиль, не сразу в диалог — конверсия косвенная.
+      Рекомендация: протестировать хотя бы один специально созданный креатив с CTA «Написать» → прямое сравнение с текущим подходом.
+    </div>
+  </div>
+</section>`;
+}
+
+function attachCreativeFilters() {
+  renderCreativeTable();
+}
+
+window.showAllCreative = function() {
+  creativeLimit = 9999;
+  renderCreativeTable();
+};
+
+// ── 09 Anomalies ──────────────────────────────────────────────────────────────
+function s09_anomalies() {
+  const A = D.anomalies;
+  const cards = A.anomalies.map(a => {
+    let detail = '';
+    if (a.affected_campaigns) detail = `Затронуто: ${a.affected_campaigns.slice(0,3).map(c=>`"${c.name}" ($${c.spend})`).join(', ')}${a.affected_campaigns.length>3?` +${a.affected_campaigns.length-3} ещё`:''}`;
+    else if (a.top_campaigns) detail = `Топ кампании: ${a.top_campaigns.map(c=>`"${c.name}" ${c.pct}%`).join(', ')}`;
+    else if (a.affected_months) detail = `Месяцы: ${a.affected_months.map(m=>`${m.month} ($${m.cost_per_msg||m.cpm})`).join(', ')}`;
+    else if (a.affected_count) detail = `Затронуто ${a.affected_count} (см. полные данные)`;
+    else if (a.w7d_count) detail = `7д-клик: ${a.w7d_count} адсетов, 1д-клик: ${a.w1d_count} адсетов`;
+    else if (a.count !== undefined) detail = `Кол-во: ${a.count}`;
+    return `
+      <div class="anomaly-card ${a.severity}">
+        <div class="anomaly-header">
+          <div class="anomaly-title">${a.title}</div>
+          ${sevBadge(a.severity)}
+        </div>
+        <div class="anomaly-body">${a.explanation}</div>
+        ${detail ? `<div class="anomaly-detail">${detail}</div>` : ''}
+        <div class="anomaly-detail">Методология: ${a.methodology}</div>
+      </div>`;
+  }).join('');
+
+  return `
+<section>
+  <div class="section-header">
+    <span class="section-num">09</span>
+    <span class="section-title">Аномалии и диагностика</span>
+    <span class="section-subtitle">${A.total_anomalies} обнаружено · ${A.by_severity.critical} критических · ${A.by_severity.warning} предупреждений · ${A.by_severity.info} информационных</span>
+  </div>
+  <div class="section-body">
+    <div class="anomaly-grid">${cards}</div>
+    <p class="note mt-8">Все пороги задокументированы в anomalies.json. Без произвольных отсечений — пороги основаны на медианных/перцентильных значениях аккаунта или задокументированных лучших практиках Meta.</p>
+    <div class="exec-summary mt-16">
+      Критических аномалий нет. Главное предупреждение: <strong>фрагментация</strong> — кампании с бюджетом &lt;$10 не проходят фазу обучения Meta (~50 конверсий/нед. на адсет).
+      Высокая частота показов (frequency &gt;3) в отдельные периоды — ранний признак усталости аудитории (рост CPM, падение CTR).
+    </div>
+  </div>
+</section>`;
+}
+
+// ── 10 Recommendations ────────────────────────────────────────────────────────
+function s10_recommendations() {
+  const R = D.recommendations;
+  const cards = R.recommendations.map(r => {
+    const affectedHtml = Array.isArray(r.affected) && r.affected.length > 0
+      ? r.affected.slice(0,3).map(a => a.name ? `"${a.name}"` : JSON.stringify(a).slice(0,60)).join(', ')
+      : '';
+    return `
+      <div class="rec-card ${r.priority}">
+        <div class="rec-header">
+          ${prioBadge(r.priority)}
+          <div class="rec-title">${r.title}</div>
+          <span class="badge badge-gray">${r.category}</span>
+        </div>
+        <div class="rec-body">
+          <div>
+            <div class="rec-field-label">Обоснование</div>
+            <div class="rec-field-value">${r.evidence}</div>
+          </div>
+          <div>
+            <div class="rec-field-label">Действие</div>
+            <div class="rec-field-value">${r.action}</div>
+          </div>
+          <div>
+            <div class="rec-field-label">Ожидаемый эффект</div>
+            <div class="rec-field-value">${r.expected_impact}</div>
+          </div>
+          <div>
+            <div class="rec-field-label">Уверенность</div>
+            <div class="rec-field-value">${confBadge(r.confidence)}
+              ${affectedHtml ? `<br><span style="font-size:11px;color:var(--dim)">Затронуто: ${affectedHtml}</span>` : ''}
+            </div>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+
+  return `
+<section>
+  <div class="section-header">
+    <span class="section-num">10</span>
+    <span class="section-title">Рекомендации</span>
+    <span class="section-subtitle">${R.total_recommendations} рекомендаций · P1: ${R.by_priority.P1} · P2: ${R.by_priority.P2} · P3: ${R.by_priority.P3}</span>
+  </div>
+  <div class="section-body">
+    <div class="note" style="margin-bottom:12px">
+      <strong>Уверенность: A = подтверждено данными · B = гипотеза (требует A/B теста) · C = отраслевой бенчмарк</strong>
+      Все рекомендации основаны исключительно на наблюдаемых данных. Придуманных бенчмарков нет.
+    </div>
+    <div class="rec-list">${cards}</div>
+  </div>
+</section>`;
+}
+
+// ── 11 Data Quality / Limitations ────────────────────────────────────────────
+function s11_limitations() {
+  const K = D.account_kpis;
+  const flags = D.audit_summary.data_quality_flags;
+  const items = [
+    { ok: true,  text: `Период данных: ${K.period.start} → ${K.period.end}` },
+    { ok: false, text: `Расходов до 2025-05-22 нет — подтверждено API (0 строк) и старым экспортом ($0.00)` },
+    { ok: false, text: K.roas_note },
+    { ok: false, text: K.purchases_note },
+    { ok: false, text: K.leads_note },
+    { ok: false, text: K.reach_note },
+    { ok: false, text: K.frequency_note },
+    { ok: false, text: K.quality_rankings_note },
+    { ok: false, text: K.outbound_clicks_note },
+    { ok: false, text: `Удалённые кампании (orphan): ${K.campaigns_orphan_deleted} кампаний с расходами — структурные метаданные недоступны` },
+    { ok: false, text: `Месяцы без активности 2025-06, 2025-09: нулевая активность подтверждена, не ошибка сбора данных` },
+    { ok: true,  text: `Сверка расходов: все 7 файлов аналитики = $3,933.06 (точное совпадение)` },
+    { ok: true,  text: `Сверка показов: 2,088,638 по всем файлам` },
+    { ok: true,  text: `Диалоги: 939 — подтверждено через campaign_insights_monthly и messaging_actions.json` },
+  ];
+  const listHtml = items.map(i => `<li class="${i.ok ? 'ok' : ''}">${i.text}</li>`).join('');
+  return `
+<section id="s11">
+  <div class="section-header">
+    <span class="section-num">11</span>
+    <span class="section-title">Качество данных и ограничения</span>
+  </div>
+  <div class="section-body">
+    <ul class="limit-list">${listHtml}</ul>
+    <p class="note mt-16">Все файлы аналитики в data/analytics/ можно перегенерировать из RAW-данных в любой момент: <code>node scripts/build-analytics.js</code></p>
+    <div class="exec-summary mt-16">
+      Данные качественные: 939 диалогов и $3,933.06 расходов подтверждены по всем 7 аналитическим файлам.
+      Главное ограничение: <strong>атрибуция истекает через 7 дней</strong> — старые остановленные кампании могут показывать 0 диалогов. Без данных CRM (диалог → запись → оплата) стоимость диалога остаётся промежуточной метрикой.
+    </div>
+  </div>
+</section>`;
+}
+
+// ── 12 Итоговое резюме ────────────────────────────────────────────────────────
+function s12_summary() {
+  const K = D.account_kpis;
+  const mf = D.messaging_funnel.account_funnel;
+  const cp = D.campaign_performance;
+  const bestCamp = D.audit_summary.campaign_summary.best_cost_per_msg;
+  const p = cp.messaging_cost_percentiles;
+
+  const findings = [
+    {
+      icon: '✅', color: '#16a34a',
+      title: 'Что работает',
+      items: [
+        `Лучшие кампании дают диалог по <strong>$1.19–$2.20</strong> — это сильный результат для услуг`,
+        `Кампании «Вовлечённость» правильно оптимизированы на Direct`,
+        `Instagram Feed — правильный основной канал для данной аудитории`,
+        `Механика буст-постов работает: органический контент конвертируется в диалоги`,
+      ]
+    },
+    {
+      icon: '⚠️', color: '#d97706',
+      title: 'Главные проблемы',
+      items: [
+        `С апреля 2026 стоимость диалога выросла в <strong>4–6 раз</strong> ($2 → $8–13). Причина не установлена`,
+        `Среди кампаний «Вовлечённость»: часть тратит бюджет с высокой стоимостью диалога (>$10) — кандидаты на паузу`,
+        `Нет специально созданных рекламных креативов — весь трафик идёт через буст органических постов`,
+        `Lookalike-аудитории почти не используются из ${D.targeting_analysis.adset_totals} адсетов`,
+        `Нет данных: сколько диалогов → записей → оплат. Реальная стоимость клиента неизвестна`,
+      ]
+    },
+    {
+      icon: '🎯', color: '#7c3aed',
+      title: 'Топ-3 быстрых действия',
+      items: [
+        `<strong>Остановить кампании с >$10/диалог</strong> или >$50 расходов без диалогов`,
+        `<strong>Создать Lookalike 1% от базы клиентов</strong> — загрузить CRM-список в Ads Manager`,
+        `<strong>Разобраться с апрелем 2026</strong>: что именно изменилось (аудитория? конкурент? контент?)`,
+      ]
+    },
+    {
+      icon: '📊', color: '#1d4ed8',
+      title: 'Ключевые цифры',
+      items: [
+        `Всего потрачено: <strong>$${K.spend.toLocaleString('ru')}</strong> за ${K.active_months_count} месяцев`,
+        `Всего диалогов: <strong>939</strong> · Средняя стоимость: <strong>$${mf.cost_per_conversation}/диалог</strong>`,
+        `Лучший месяц: декабрь 2025 ($2.20/диалог) · Худший: май 2026 ($13.12/диалог)`,
+        `Лучшая кампания: ${bestCamp ? '"'+bestCamp.name+'"' : 'н/д'} (~$1.19/диалог)`,
+        `Ответ на первое сообщение: <strong>${Math.round(mf.first_reply_rate*100)}%</strong> из начатых диалогов`,
+      ]
+    },
+  ];
+
+  const html = findings.map(f => `
+    <div style="background:var(--card2);border:1px solid var(--line);border-left:3px solid ${f.color};border-radius:8px;padding:14px 16px;margin-bottom:10px">
+      <div style="font-weight:700;font-size:13px;color:${f.color};margin-bottom:8px">${f.icon} ${f.title}</div>
+      <ul style="margin:0;padding-left:18px;font-size:12.5px;line-height:1.7;color:var(--mute)">
+        ${f.items.map(i=>`<li style="color:var(--mute)">${i}</li>`).join('')}
+      </ul>
+    </div>`).join('');
+
+  return `
+<section id="s12" style="border:1px solid rgba(74,146,224,.4)">
+  <div class="section-header" style="background:rgba(74,146,224,.07)">
+    <span class="section-num">12</span>
+    <span class="section-title" style="color:#79b8f3">Итоговое резюме аудита</span>
+    <span class="section-subtitle">Ключевые выводы · Весь период</span>
+  </div>
+  <div class="section-body">
+    ${html}
+    <div class="exec-summary" style="background:rgba(230,180,80,.07);border-left-color:var(--warn);color:var(--warn);margin-top:0">
+      <strong>Главный вывод:</strong> аккаунт работает, лучшие кампании дают $1.19–2.20/диалог. Проблема одна — <strong>с апреля 2026 стоимость выросла в 3–6 раз</strong> и не восстановилась. Пока не исправлено — масштабировать бюджет бессмысленно.
+    </div>
+  </div>
+</section>`;
+}
+
+// ── 13 Strategy ───────────────────────────────────────────────────────────────
+function s13_strategy() {
+  return `
+<section>
+  <div class="section-header">
+    <span class="section-num">13</span>
+    <span class="section-title">Стратегия</span>
+    <span class="section-subtitle">На основе аудита и брифа</span>
+  </div>
+  <div class="section-body">
+    <div class="strategy-placeholder">
+      <h2>В разработке</h2>
+      <p>Будет сформирована на основе данных аудита и брифа клиента</p>
+    </div>
+  </div>
+</section>`;
+}
+
+// ── Bootstrap ─────────────────────────────────────────────────────────────────
+init();
+</script>
+</body>
+</html>

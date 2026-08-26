@@ -1,0 +1,208 @@
+{
+  "generated_at": "2026-08-26T09:41:35.234Z",
+  "period": {
+    "start": "2025-05-22",
+    "end": "2026-08-25",
+    "note": "No spend Jan 2025–May 21, 2025. Confirmed by API and old export."
+  },
+  "thresholds_used": {
+    "cpm_threshold": 3.85,
+    "cpc_threshold": 0.39,
+    "median_cpm": 1.93,
+    "median_cpc": 0.16
+  },
+  "total_anomalies": 9,
+  "by_severity": {
+    "critical": 0,
+    "warning": 2,
+    "info": 7
+  },
+  "anomalies": [
+    {
+      "id": "campaign_fragmentation",
+      "severity": "warning",
+      "title": "Фрагментация кампаний (много кампаний с малыми расходами)",
+      "explanation": "9 кампаний потратили менее $10. Малые бюджеты ограничивают способность Meta выйти из фазы обучения (~50 конверсий/нед. на адсет).",
+      "methodology": "Порог: расходы < $10 на кампанию.",
+      "affected_count": 9,
+      "affected_campaigns": [
+        {
+          "name": "Публикация в Instagram: Тбилиси, приглашаем вас...",
+          "spend": 9.64
+        },
+        {
+          "name": "Публикация в Instagram: Тбилиси, приглашаем вас...",
+          "spend": 8.9
+        },
+        {
+          "name": "Публикация в Instagram: Deep Tissue Massage is a...",
+          "spend": 8.75
+        },
+        {
+          "name": "Публикация в Instagram: Он писал мне письма,...",
+          "spend": 8.18
+        },
+        {
+          "name": "Курс — Копия",
+          "spend": 6.19
+        },
+        {
+          "name": "Новая кампания с целью \"Продажи\"",
+          "spend": 6.16
+        },
+        {
+          "name": "Сеансы",
+          "spend": 5.65
+        },
+        {
+          "name": "Публикация в Instagram: Deep Tissue Massage is a...",
+          "spend": 3.27
+        },
+        {
+          "name": "Test 1 | переписки в директ |  3 настройки аудитории | 25.08 | CBO",
+          "spend": 0.46
+        }
+      ]
+    },
+    {
+      "id": "high_cpm_periods",
+      "severity": "info",
+      "title": "Высокий CPM в отдельные периоды",
+      "explanation": "CPM превысил 3.85 (2× медианы 1.93) в 2 месяцах. Высокий CPM может указывать на рост конкуренции на аукционе или несоответствие креатива/аудитории.",
+      "methodology": "Порог: CPM > 2× медиана CPM по кампаниям ($1.93).",
+      "affected_months": [
+        {
+          "month": "2025-11",
+          "cpm": 4.76
+        },
+        {
+          "month": "2025-12",
+          "cpm": 4.08
+        }
+      ]
+    },
+    {
+      "id": "duplicate_creatives",
+      "severity": "info",
+      "title": "Дублирующиеся Creative ID в объявлениях",
+      "explanation": "8 creative ID используются несколькими объявлениями. Это может быть намеренным (один креатив в разных адсетах), но затрудняет атрибуцию эффективности к конкретному варианту.",
+      "methodology": "Поле creative.id сравнивается по всем объявлениям в ads.json.",
+      "affected_creatives": [
+        {
+          "creative_id": "1384390660557956",
+          "used_by_count": 2
+        },
+        {
+          "creative_id": "1763182201488247",
+          "used_by_count": 2
+        },
+        {
+          "creative_id": "2573066366543936",
+          "used_by_count": 2
+        },
+        {
+          "creative_id": "1513129540386147",
+          "used_by_count": 2
+        },
+        {
+          "creative_id": "786418444015130",
+          "used_by_count": 4
+        },
+        {
+          "creative_id": "1211142111231043",
+          "used_by_count": 4
+        },
+        {
+          "creative_id": "881866251394463",
+          "used_by_count": 2
+        },
+        {
+          "creative_id": "865097946502469",
+          "used_by_count": 2
+        }
+      ]
+    },
+    {
+      "id": "broad_targeting",
+      "severity": "info",
+      "title": "Большинство адсетов — максимально широкий таргетинг (18-65, без интересов)",
+      "explanation": "16/151 адсетов таргетируют возраст 18-65 без уточнения интересов или аудитории. Advantage+ выигрывает от широкого входа, но это ограничивает тестирование гипотез по аудитории.",
+      "methodology": "Адсеты с age_min ≤ 18, age_max ≥ 65, без flexible_spec, без custom_audiences.",
+      "count": 16,
+      "total_adsets": 151
+    },
+    {
+      "id": "attribution_window_mismatch",
+      "severity": "info",
+      "title": "Разные окна атрибуции в адсетах",
+      "explanation": "83 адсетов используют 7-дневную атрибуцию по клику, 26 — 1-дневную. Сравнение адсетов с разными окнами может давать искажённые результаты — длинные окна завышают отчётные конверсии.",
+      "methodology": "attribution_spec.window_days из adsets.json.",
+      "w7d_count": 83,
+      "w1d_count": 26
+    },
+    {
+      "id": "cost_per_msg_spikes",
+      "severity": "warning",
+      "title": "Скачки стоимости диалога в отдельные месяцы",
+      "explanation": "Стоимость/диалог превысила $10.48 (2.5× средней $4.19) в 3 месяцах. Вероятно, вызвано кампаниями без цели диалогов или несоответствием аудитории.",
+      "methodology": "Порог: стоимость/диалог > 2.5× средней по аккаунту ($4.19).",
+      "affected_months": [
+        {
+          "month": "2025-07",
+          "cost_per_msg": 13.57
+        },
+        {
+          "month": "2026-05",
+          "cost_per_msg": 13.12
+        },
+        {
+          "month": "2026-08",
+          "cost_per_msg": 10.97
+        }
+      ]
+    },
+    {
+      "id": "high_frequency",
+      "severity": "info",
+      "title": "Высокая частота показов в отдельных кампаниях-месяцах",
+      "explanation": "2 строк кампания-месяц показывают частоту > 3 (пользователи видели рекламу >3 раз в месяц). Высокая частота коррелирует с усталостью от рекламы и ростом CPM, хотя причинно-следственная связь требует мониторинга CTR.",
+      "methodology": "Порог: frequency > 3 в одном месячном периоде (из campaign_insights_monthly).",
+      "affected_count": 2,
+      "affected": [
+        {
+          "campaign": "Новая кампания с целью \"Продажи\"",
+          "month": "2025-11",
+          "frequency": "3.32"
+        },
+        {
+          "campaign": "трафик на конкурс - парный массаж",
+          "month": "2026-01",
+          "frequency": "3.10"
+        }
+      ]
+    },
+    {
+      "id": "orphan_deleted_campaigns",
+      "severity": "info",
+      "title": "Удалённые кампании с историческими расходами",
+      "explanation": "4 кампании присутствуют в инсайтах, но отсутствуют в campaigns.json (удалены из аккаунта). Их расходы ($73.55) включены в общие суммы, но структурные метаданные (таргетинг, креативы) недоступны.",
+      "methodology": "ID кампаний, присутствующие в campaign_insights_monthly, но отсутствующие в campaigns.json.",
+      "affected_ids": [
+        "120210235463000186",
+        "120228929625610186",
+        "120229750385850186",
+        "120243560401010186"
+      ],
+      "total_spend": 73.55
+    },
+    {
+      "id": "inactive_campaigns_with_budget",
+      "severity": "info",
+      "title": "Большое количество приостановленных кампаний",
+      "explanation": "93/111 кампаний сейчас на паузе. 47 имеют оставшийся бюджет. Это создаёт беспорядок в аккаунте и может влиять на сигналы качества кампаний.",
+      "methodology": "status = PAUSED из campaigns.json.",
+      "paused_count": 93,
+      "paused_with_budget": 47
+    }
+  ]
+}
