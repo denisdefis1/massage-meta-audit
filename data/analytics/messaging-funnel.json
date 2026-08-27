@@ -1,60 +1,60 @@
 {
-  "generated_at": "2026-08-27T00:00:00Z",
+  "generated_at": "2026-08-27T10:10:27.102Z",
   "period": {
     "start": "2026-03-01",
     "end": "2026-08-25",
-    "note": "Период считается с марта 2026. До марта — другой менеджер, другая настройка аккаунта."
+    "note": "Период с марта 2026. До марта — другой менеджер, другая структура аккаунта. Данные за этот период в аудит не включены."
   },
   "primary_kpi_note": "Primary KPI: onsite_conversion.messaging_conversation_started_7d. Do NOT sum with total_messaging_connection.",
   "attribution_note": "7-day click attribution window for most adsets. Conversations attributed to last click within 7 days.",
   "historical_data_note": "messaging_conversation_started_7d for old campaigns (>7 days ago) may show 0 — attribution window expired, not actual zero.",
   "order_reliability_note": "messaging_order_created_v2 = 6 total. Too few for reliable analysis.",
   "account_funnel": {
-    "total_messaging_connection": 364,
-    "messaging_started": 348,
-    "messaging_first_reply": 280,
+    "total_messaging_connection": 365,
+    "messaging_started": 350,
+    "messaging_first_reply": 281,
     "messaging_replied": 181,
     "messaging_order": 6,
-    "spend": 1887.78,
-    "cost_per_conversation": 5.42,
-    "first_reply_rate": 0.8046,
-    "replied_rate": 0.5201,
-    "order_rate": 0.0172
+    "spend": 1912.24,
+    "cost_per_conversation": 5.46,
+    "first_reply_rate": 0.8029,
+    "replied_rate": 0.5171,
+    "order_rate": 0.0171
   },
   "monthly_funnel": [
     {
       "month": "2026-03",
-      "spend": 477.29,
+      "spend": 449.89,
       "campaigns": 8,
       "messaging_started": 206,
       "messaging_first_reply": 189,
       "messaging_replied": 90,
       "messaging_order": 0,
-      "cost_per_messaging_started": 2.32,
+      "cost_per_messaging_started": 2.18,
       "first_reply_rate": 0.9175,
       "replied_rate": 0.4369
     },
     {
       "month": "2026-04",
-      "spend": 246.04,
+      "spend": 245.52,
       "campaigns": 6,
       "messaging_started": 29,
       "messaging_first_reply": 15,
       "messaging_replied": 17,
       "messaging_order": 5,
-      "cost_per_messaging_started": 8.48,
+      "cost_per_messaging_started": 8.47,
       "first_reply_rate": 0.5172,
       "replied_rate": 0.5862
     },
     {
       "month": "2026-05",
-      "spend": 330.24,
+      "spend": 214.61,
       "campaigns": 8,
-      "messaging_started": 25,
+      "messaging_started": 27,
       "messaging_first_reply": 14,
       "messaging_replied": 16,
       "messaging_order": 1,
-      "cost_per_messaging_started": 13.21,
+      "cost_per_messaging_started": 7.95,
       "first_reply_rate": 0.5185,
       "replied_rate": 0.5926
     },
@@ -84,13 +84,13 @@
     },
     {
       "month": "2026-08",
-      "spend": 240.92,
+      "spend": 194.24,
       "campaigns": 5,
       "messaging_started": 22,
       "messaging_first_reply": 15,
       "messaging_replied": 12,
       "messaging_order": 0,
-      "cost_per_messaging_started": 10.95,
+      "cost_per_messaging_started": 8.83,
       "first_reply_rate": 0.6818,
       "replied_rate": 0.5455
     }
@@ -100,122 +100,20 @@
       "campaign_id": "120239227935760186",
       "campaign_name": "Парный массаж_4 вида",
       "objective": "OUTCOME_ENGAGEMENT",
-      "spend": 231.7,
-      "impressions": 88666,
+      "spend": 165.87,
+      "impressions": 65066,
       "months": [
-        "2026-02",
         "2026-03"
       ],
-      "messaging_started": 195,
-      "messaging_first_reply": 182,
-      "messaging_replied": 81,
+      "messaging_started": 143,
+      "messaging_first_reply": 136,
+      "messaging_replied": 56,
       "messaging_order": 0,
-      "messaging_total_connection": 207,
-      "active_months_count": 2,
-      "cost_per_messaging_started": 1.19,
-      "first_reply_rate": 0.9333,
-      "replied_rate": 0.4154,
-      "order_rate": 0
-    },
-    {
-      "campaign_id": "120238851134120186",
-      "campaign_name": "парный сеанс - 2",
-      "objective": "OUTCOME_ENGAGEMENT",
-      "spend": 120.93,
-      "impressions": 37624,
-      "months": [
-        "2026-02"
-      ],
-      "messaging_started": 79,
-      "messaging_first_reply": 75,
-      "messaging_replied": 31,
-      "messaging_order": 0,
-      "messaging_total_connection": 95,
+      "messaging_total_connection": 151,
       "active_months_count": 1,
-      "cost_per_messaging_started": 1.53,
-      "first_reply_rate": 0.9494,
-      "replied_rate": 0.3924,
-      "order_rate": 0
-    },
-    {
-      "campaign_id": "120234073480050186",
-      "campaign_name": "Новая кампания с целью \"Продажи\"",
-      "objective": "OUTCOME_SALES",
-      "spend": 344.8,
-      "impressions": 79565,
-      "months": [
-        "2025-10",
-        "2025-11"
-      ],
-      "messaging_started": 76,
-      "messaging_first_reply": 68,
-      "messaging_replied": 14,
-      "messaging_order": 0,
-      "messaging_total_connection": 90,
-      "active_months_count": 2,
-      "cost_per_messaging_started": 4.54,
-      "first_reply_rate": 0.8947,
-      "replied_rate": 0.1842,
-      "order_rate": 0
-    },
-    {
-      "campaign_id": "120237896913010186",
-      "campaign_name": "парный сеанс — только директ инста",
-      "objective": "OUTCOME_ENGAGEMENT",
-      "spend": 161.71,
-      "impressions": 48071,
-      "months": [
-        "2026-01"
-      ],
-      "messaging_started": 60,
-      "messaging_first_reply": 52,
-      "messaging_replied": 23,
-      "messaging_order": 0,
-      "messaging_total_connection": 63,
-      "active_months_count": 1,
-      "cost_per_messaging_started": 2.7,
-      "first_reply_rate": 0.8667,
-      "replied_rate": 0.3833,
-      "order_rate": 0
-    },
-    {
-      "campaign_id": "120238888988240186",
-      "campaign_name": "Массаж тела, М и Ж — 2",
-      "objective": "OUTCOME_ENGAGEMENT",
-      "spend": 107.86,
-      "impressions": 27465,
-      "months": [
-        "2026-02"
-      ],
-      "messaging_started": 55,
-      "messaging_first_reply": 49,
-      "messaging_replied": 26,
-      "messaging_order": 0,
-      "messaging_total_connection": 60,
-      "active_months_count": 1,
-      "cost_per_messaging_started": 1.96,
-      "first_reply_rate": 0.8909,
-      "replied_rate": 0.4727,
-      "order_rate": 0
-    },
-    {
-      "campaign_id": "120237288600110186",
-      "campaign_name": "Болит спина? М, Ж",
-      "objective": "OUTCOME_ENGAGEMENT",
-      "spend": 49.55,
-      "impressions": 15161,
-      "months": [
-        "2025-12"
-      ],
-      "messaging_started": 47,
-      "messaging_first_reply": 43,
-      "messaging_replied": 11,
-      "messaging_order": 0,
-      "messaging_total_connection": 48,
-      "active_months_count": 1,
-      "cost_per_messaging_started": 1.05,
-      "first_reply_rate": 0.9149,
-      "replied_rate": 0.234,
+      "cost_per_messaging_started": 1.16,
+      "first_reply_rate": 0.951,
+      "replied_rate": 0.3916,
       "order_rate": 0
     },
     {
@@ -243,26 +141,6 @@
       "order_rate": 0
     },
     {
-      "campaign_id": "120237896670410186",
-      "campaign_name": "Массаж лица, Ж — только директ инста",
-      "objective": "OUTCOME_ENGAGEMENT",
-      "spend": 142.1,
-      "impressions": 20667,
-      "months": [
-        "2026-01"
-      ],
-      "messaging_started": 33,
-      "messaging_first_reply": 24,
-      "messaging_replied": 22,
-      "messaging_order": 0,
-      "messaging_total_connection": 42,
-      "active_months_count": 1,
-      "cost_per_messaging_started": 4.31,
-      "first_reply_rate": 0.7273,
-      "replied_rate": 0.6667,
-      "order_rate": 0
-    },
-    {
       "campaign_id": "120239748816250186",
       "campaign_name": "поздравь любимую_8 марта",
       "objective": "OUTCOME_ENGAGEMENT",
@@ -280,69 +158,6 @@
       "cost_per_messaging_started": 2.11,
       "first_reply_rate": 0.8485,
       "replied_rate": 0.5455,
-      "order_rate": 0
-    },
-    {
-      "campaign_id": "120237486456530186",
-      "campaign_name": "english",
-      "objective": "OUTCOME_ENGAGEMENT",
-      "spend": 45.41,
-      "impressions": 21586,
-      "months": [
-        "2025-12",
-        "2026-01"
-      ],
-      "messaging_started": 29,
-      "messaging_first_reply": 28,
-      "messaging_replied": 3,
-      "messaging_order": 0,
-      "messaging_total_connection": 28,
-      "active_months_count": 2,
-      "cost_per_messaging_started": 1.57,
-      "first_reply_rate": 0.9655,
-      "replied_rate": 0.1034,
-      "order_rate": 0
-    },
-    {
-      "campaign_id": "120237519837560186",
-      "campaign_name": "Массаж тела, М и Ж new",
-      "objective": "OUTCOME_ENGAGEMENT",
-      "spend": 44.23,
-      "impressions": 18443,
-      "months": [
-        "2025-12",
-        "2026-01"
-      ],
-      "messaging_started": 25,
-      "messaging_first_reply": 24,
-      "messaging_replied": 2,
-      "messaging_order": 0,
-      "messaging_total_connection": 27,
-      "active_months_count": 2,
-      "cost_per_messaging_started": 1.77,
-      "first_reply_rate": 0.96,
-      "replied_rate": 0.08,
-      "order_rate": 0
-    },
-    {
-      "campaign_id": "120237289677520186",
-      "campaign_name": "Массаж лица, Ж",
-      "objective": "OUTCOME_ENGAGEMENT",
-      "spend": 104.4,
-      "impressions": 24719,
-      "months": [
-        "2025-12",
-        "2026-01"
-      ],
-      "messaging_started": 24,
-      "messaging_first_reply": 20,
-      "messaging_replied": 2,
-      "messaging_order": 0,
-      "messaging_total_connection": 29,
-      "active_months_count": 2,
-      "cost_per_messaging_started": 4.35,
-      "first_reply_rate": 0.8333,
-      "replied_rate": 0.0833,
       "order_rate": 0
     },
     {
@@ -367,26 +182,6 @@
       "order_rate": 0.0435
     },
     {
-      "campaign_id": "120237291936200186",
-      "campaign_name": "Массаж тела, М и Ж",
-      "objective": "OUTCOME_ENGAGEMENT",
-      "spend": 64.94,
-      "impressions": 14912,
-      "months": [
-        "2025-12"
-      ],
-      "messaging_started": 21,
-      "messaging_first_reply": 15,
-      "messaging_replied": 3,
-      "messaging_order": 0,
-      "messaging_total_connection": 20,
-      "active_months_count": 1,
-      "cost_per_messaging_started": 3.09,
-      "first_reply_rate": 0.7143,
-      "replied_rate": 0.1429,
-      "order_rate": 0
-    },
-    {
       "campaign_id": "120239677291550186",
       "campaign_name": "день матери",
       "objective": "OUTCOME_ENGAGEMENT",
@@ -404,26 +199,6 @@
       "cost_per_messaging_started": 3.03,
       "first_reply_rate": 0.9412,
       "replied_rate": 0.5294,
-      "order_rate": 0
-    },
-    {
-      "campaign_id": "120237518663510186",
-      "campaign_name": "Массаж лица, Ж — яркий макет",
-      "objective": "OUTCOME_ENGAGEMENT",
-      "spend": 38.98,
-      "impressions": 12741,
-      "months": [
-        "2026-01"
-      ],
-      "messaging_started": 15,
-      "messaging_first_reply": 14,
-      "messaging_replied": 3,
-      "messaging_order": 0,
-      "messaging_total_connection": 17,
-      "active_months_count": 1,
-      "cost_per_messaging_started": 2.6,
-      "first_reply_rate": 0.9333,
-      "replied_rate": 0.2,
       "order_rate": 0
     },
     {
@@ -470,47 +245,6 @@
       "order_rate": 0.0769
     },
     {
-      "campaign_id": "120237518269570186",
-      "campaign_name": "подарочный сертификат",
-      "objective": "OUTCOME_ENGAGEMENT",
-      "spend": 39.08,
-      "impressions": 11415,
-      "months": [
-        "2025-12",
-        "2026-01"
-      ],
-      "messaging_started": 12,
-      "messaging_first_reply": 10,
-      "messaging_replied": 3,
-      "messaging_order": 0,
-      "messaging_total_connection": 14,
-      "active_months_count": 2,
-      "cost_per_messaging_started": 3.26,
-      "first_reply_rate": 0.8333,
-      "replied_rate": 0.25,
-      "order_rate": 0
-    },
-    {
-      "campaign_id": "120237846594090186",
-      "campaign_name": "Массаж лица, Ж — 2",
-      "objective": "OUTCOME_ENGAGEMENT",
-      "spend": 21.27,
-      "impressions": 5314,
-      "months": [
-        "2026-01"
-      ],
-      "messaging_started": 12,
-      "messaging_first_reply": 12,
-      "messaging_replied": 3,
-      "messaging_order": 0,
-      "messaging_total_connection": 15,
-      "active_months_count": 1,
-      "cost_per_messaging_started": 1.77,
-      "first_reply_rate": 1,
-      "replied_rate": 0.25,
-      "order_rate": 0
-    },
-    {
       "campaign_id": "120244287837670186",
       "campaign_name": "Публикация в Instagram: Не откладывайте решение...",
       "objective": "LINK_CLICKS",
@@ -531,26 +265,6 @@
       "cost_per_messaging_started": 20.37,
       "first_reply_rate": 0.75,
       "replied_rate": 0.9167,
-      "order_rate": 0
-    },
-    {
-      "campaign_id": "120237848566860186",
-      "campaign_name": "парный сеанс — Копия",
-      "objective": "OUTCOME_ENGAGEMENT",
-      "spend": 15.46,
-      "impressions": 4818,
-      "months": [
-        "2026-01"
-      ],
-      "messaging_started": 9,
-      "messaging_first_reply": 9,
-      "messaging_replied": 2,
-      "messaging_order": 0,
-      "messaging_total_connection": 9,
-      "active_months_count": 1,
-      "cost_per_messaging_started": 1.72,
-      "first_reply_rate": 1,
-      "replied_rate": 0.2222,
       "order_rate": 0
     },
     {
@@ -575,26 +289,6 @@
       "order_rate": 0.1111
     },
     {
-      "campaign_id": "120238851295640186",
-      "campaign_name": "Массаж тела, Ж",
-      "objective": "OUTCOME_ENGAGEMENT",
-      "spend": 29.68,
-      "impressions": 7093,
-      "months": [
-        "2026-02"
-      ],
-      "messaging_started": 8,
-      "messaging_first_reply": 6,
-      "messaging_replied": 3,
-      "messaging_order": 0,
-      "messaging_total_connection": 10,
-      "active_months_count": 1,
-      "cost_per_messaging_started": 3.71,
-      "first_reply_rate": 0.75,
-      "replied_rate": 0.375,
-      "order_rate": 0
-    },
-    {
       "campaign_id": "120247469522620186",
       "campaign_name": "Публикация в Instagram: Друзья, приглашаю вас в...",
       "objective": "LINK_CLICKS",
@@ -612,46 +306,6 @@
       "cost_per_messaging_started": 5.83,
       "first_reply_rate": 0.375,
       "replied_rate": 0.25,
-      "order_rate": 0
-    },
-    {
-      "campaign_id": "120237846839830186",
-      "campaign_name": "трафик на конкурс - парный массаж",
-      "objective": "LINK_CLICKS",
-      "spend": 161.11,
-      "impressions": 70335,
-      "months": [
-        "2026-01"
-      ],
-      "messaging_started": 7,
-      "messaging_first_reply": 4,
-      "messaging_replied": 1,
-      "messaging_order": 0,
-      "messaging_total_connection": 4,
-      "active_months_count": 1,
-      "cost_per_messaging_started": 23.02,
-      "first_reply_rate": 0.5714,
-      "replied_rate": 0.1429,
-      "order_rate": 0
-    },
-    {
-      "campaign_id": "120237847138710186",
-      "campaign_name": "Массаж тела, только М",
-      "objective": "OUTCOME_ENGAGEMENT",
-      "spend": 11.11,
-      "impressions": 4691,
-      "months": [
-        "2026-01"
-      ],
-      "messaging_started": 6,
-      "messaging_first_reply": 5,
-      "messaging_replied": 1,
-      "messaging_order": 0,
-      "messaging_total_connection": 8,
-      "active_months_count": 1,
-      "cost_per_messaging_started": 1.85,
-      "first_reply_rate": 0.8333,
-      "replied_rate": 0.1667,
       "order_rate": 0
     },
     {
@@ -717,26 +371,6 @@
       "order_rate": 0.1667
     },
     {
-      "campaign_id": "120233837701500186",
-      "campaign_name": "Массаж просмотр",
-      "objective": "OUTCOME_ENGAGEMENT",
-      "spend": 197.18,
-      "impressions": 112551,
-      "months": [
-        "2025-10"
-      ],
-      "messaging_started": 4,
-      "messaging_first_reply": 2,
-      "messaging_replied": 0,
-      "messaging_order": 0,
-      "messaging_total_connection": 4,
-      "active_months_count": 1,
-      "cost_per_messaging_started": 49.3,
-      "first_reply_rate": 0.5,
-      "replied_rate": 0,
-      "order_rate": 0
-    },
-    {
       "campaign_id": "120247469569120186",
       "campaign_name": "Публикация в Instagram: Тбилиси, приглашаем вас в...",
       "objective": "LINK_CLICKS",
@@ -754,46 +388,6 @@
       "cost_per_messaging_started": 11.68,
       "first_reply_rate": 0.75,
       "replied_rate": 0.5,
-      "order_rate": 0
-    },
-    {
-      "campaign_id": "120228929625610186",
-      "campaign_name": "Публикация в Instagram: ОБУЧЕНИЕ ЛИФТИНГ МАССАЖУ...",
-      "objective": "LINK_CLICKS",
-      "spend": 17.95,
-      "impressions": 14996,
-      "months": [
-        "2025-07"
-      ],
-      "messaging_started": 3,
-      "messaging_first_reply": 1,
-      "messaging_replied": 0,
-      "messaging_order": 0,
-      "messaging_total_connection": 1,
-      "active_months_count": 1,
-      "cost_per_messaging_started": 5.98,
-      "first_reply_rate": 0.3333,
-      "replied_rate": 0,
-      "order_rate": 0
-    },
-    {
-      "campaign_id": "120237896774480186",
-      "campaign_name": "Массаж тела, только М — только директ инста",
-      "objective": "OUTCOME_ENGAGEMENT",
-      "spend": 19.33,
-      "impressions": 5826,
-      "months": [
-        "2026-01"
-      ],
-      "messaging_started": 3,
-      "messaging_first_reply": 3,
-      "messaging_replied": 0,
-      "messaging_order": 0,
-      "messaging_total_connection": 4,
-      "active_months_count": 1,
-      "cost_per_messaging_started": 6.44,
-      "first_reply_rate": 1,
-      "replied_rate": 0,
       "order_rate": 0
     },
     {
@@ -857,67 +451,6 @@
       "order_rate": 0
     },
     {
-      "campaign_id": "120214727508360186",
-      "campaign_name": "Курс — Копия",
-      "objective": "OUTCOME_SALES",
-      "spend": 6.19,
-      "impressions": 1987,
-      "months": [
-        "2025-07"
-      ],
-      "messaging_started": 2,
-      "messaging_first_reply": 2,
-      "messaging_replied": 0,
-      "messaging_order": 0,
-      "messaging_total_connection": 2,
-      "active_months_count": 1,
-      "cost_per_messaging_started": 3.1,
-      "first_reply_rate": 1,
-      "replied_rate": 0,
-      "order_rate": 0
-    },
-    {
-      "campaign_id": "120234318409070186",
-      "campaign_name": "Новая кампания с целью \"Продажи\"",
-      "objective": "OUTCOME_SALES",
-      "spend": 6.16,
-      "impressions": 3307,
-      "months": [
-        "2025-10",
-        "2025-11"
-      ],
-      "messaging_started": 2,
-      "messaging_first_reply": 1,
-      "messaging_replied": 0,
-      "messaging_order": 0,
-      "messaging_total_connection": 3,
-      "active_months_count": 2,
-      "cost_per_messaging_started": 3.08,
-      "first_reply_rate": 0.5,
-      "replied_rate": 0,
-      "order_rate": 0
-    },
-    {
-      "campaign_id": "120238851114550186",
-      "campaign_name": "трафик на конкурс - 14 февраля",
-      "objective": "LINK_CLICKS",
-      "spend": 97.04,
-      "impressions": 33889,
-      "months": [
-        "2026-02"
-      ],
-      "messaging_started": 2,
-      "messaging_first_reply": 1,
-      "messaging_replied": 1,
-      "messaging_order": 0,
-      "messaging_total_connection": 1,
-      "active_months_count": 1,
-      "cost_per_messaging_started": 48.52,
-      "first_reply_rate": 0.5,
-      "replied_rate": 0.5,
-      "order_rate": 0
-    },
-    {
       "campaign_id": "120241901781540186",
       "campaign_name": "Публикация в Instagram: Человек часто приходит на...",
       "objective": "LINK_CLICKS",
@@ -975,66 +508,6 @@
       "cost_per_messaging_started": 4.82,
       "first_reply_rate": 0.5,
       "replied_rate": 1,
-      "order_rate": 0
-    },
-    {
-      "campaign_id": "120214331399680186",
-      "campaign_name": "Трафик",
-      "objective": "LINK_CLICKS",
-      "spend": 51.01,
-      "impressions": 48622,
-      "months": [
-        "2025-07"
-      ],
-      "messaging_started": 1,
-      "messaging_first_reply": 1,
-      "messaging_replied": 0,
-      "messaging_order": 0,
-      "messaging_total_connection": 0,
-      "active_months_count": 1,
-      "cost_per_messaging_started": 51.01,
-      "first_reply_rate": 1,
-      "replied_rate": 0,
-      "order_rate": 0
-    },
-    {
-      "campaign_id": "120214523439150186",
-      "campaign_name": "Сеансы",
-      "objective": "OUTCOME_SALES",
-      "spend": 5.65,
-      "impressions": 1835,
-      "months": [
-        "2025-07"
-      ],
-      "messaging_started": 1,
-      "messaging_first_reply": 0,
-      "messaging_replied": 0,
-      "messaging_order": 0,
-      "messaging_total_connection": 0,
-      "active_months_count": 1,
-      "cost_per_messaging_started": 5.65,
-      "first_reply_rate": 0,
-      "replied_rate": 0,
-      "order_rate": 0
-    },
-    {
-      "campaign_id": "120229750385850186",
-      "campaign_name": "Публикация в Instagram: ОБУЧЕНИЕ ЛИФТИНГ МАССАЖУ...",
-      "objective": "LINK_CLICKS",
-      "spend": 14.1,
-      "impressions": 10737,
-      "months": [
-        "2025-07"
-      ],
-      "messaging_started": 1,
-      "messaging_first_reply": 1,
-      "messaging_replied": 0,
-      "messaging_order": 0,
-      "messaging_total_connection": 1,
-      "active_months_count": 1,
-      "cost_per_messaging_started": 14.1,
-      "first_reply_rate": 1,
-      "replied_rate": 0,
       "order_rate": 0
     },
     {
@@ -1096,26 +569,6 @@
       "first_reply_rate": 1,
       "replied_rate": 1,
       "order_rate": 0
-    },
-    {
-      "campaign_id": "120225776501740186",
-      "campaign_name": "Instagram Post",
-      "objective": "LINK_CLICKS",
-      "spend": 13.98,
-      "impressions": 4664,
-      "months": [
-        "2025-05"
-      ],
-      "messaging_started": 0,
-      "messaging_first_reply": 0,
-      "messaging_replied": 0,
-      "messaging_order": 0,
-      "messaging_total_connection": 1,
-      "active_months_count": 1,
-      "cost_per_messaging_started": null,
-      "first_reply_rate": null,
-      "replied_rate": null,
-      "order_rate": null
     },
     {
       "campaign_id": "120240078649310186",
