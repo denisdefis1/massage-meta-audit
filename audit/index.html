@@ -2406,7 +2406,7 @@ function s12_summary() {
       icon: '✅', color: '#16a34a',
       title: 'Что работает',
       items: [
-        `Лучшие кампании дают диалог по <strong>$1.19–$2.20</strong> — это сильный результат для услуг`,
+        `Лучшие кампании дают диалог по <strong>$1.16–$2.32</strong> — это сильный результат для услуг`,
         `Кампании «Вовлечённость» правильно оптимизированы на Direct`,
         `Instagram Feed — правильный основной канал для данной аудитории`,
         `Механика буст-постов работает: органический контент конвертируется в диалоги`,
@@ -2437,9 +2437,9 @@ function s12_summary() {
       title: 'Ключевые цифры',
       items: [
         `Всего потрачено: <strong>$${K.spend.toLocaleString('ru')}</strong> за ${K.active_months_count} месяцев`,
-        `Всего диалогов: <strong>939</strong> · Средняя стоимость: <strong>$${mf.cost_per_conversation}/диалог</strong>`,
-        `Лучший месяц: декабрь 2025 ($2.20/диалог) · Худший: май 2026 ($13.12/диалог)`,
-        `Лучшая кампания: ${bestCamp ? '"'+bestCamp.name+'"' : 'н/д'} (~$1.19/диалог)`,
+        `Всего диалогов: <strong>${mf.messaging_started}</strong> · Средняя стоимость: <strong>$${mf.cost_per_conversation}/диалог</strong>`,
+        `Лучший месяц: март 2026 ($2.32/диалог, 206 диалогов) · Худший: май 2026 ($13.12/диалог)`,
+        `Лучшая кампания: ${bestCamp ? '"'+bestCamp.name+'"' : 'н/д'} (~$1.16/диалог)`,
         `Ответ на первое сообщение: <strong>${Math.round(mf.first_reply_rate*100)}%</strong> из начатых диалогов`,
       ]
     },
@@ -2458,12 +2458,12 @@ function s12_summary() {
   <div class="section-header" style="background:rgba(74,146,224,.07)">
     <span class="section-num">12</span>
     <span class="section-title" style="color:#79b8f3">Итоговое резюме аудита</span>
-    <span class="section-subtitle">Ключевые выводы · Весь период</span>
+    <span class="section-subtitle">Ключевые выводы · Март–август 2026</span>
   </div>
   <div class="section-body">
     ${html}
     <div class="exec-summary" style="background:rgba(230,180,80,.07);border-left-color:var(--warn);color:var(--warn);margin-top:0">
-      <strong>Главный вывод:</strong> аккаунт работает, лучшие кампании дают $1.19–2.20/диалог. Проблема одна — <strong>с апреля 2026 стоимость выросла в 3–6 раз</strong> и не восстановилась. Пока не исправлено — масштабировать бюджет бессмысленно.
+      <strong>Главный вывод:</strong> аккаунт работает, лучшие кампании дают $1.16–2.32/диалог. Проблема одна — <strong>с апреля 2026 стоимость выросла в 3–6 раз</strong> и не восстановилась. Пока не исправлено — масштабировать бюджет бессмысленно.
     </div>
   </div>
 </section>`;
