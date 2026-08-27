@@ -788,5 +788,6 @@
       }
     ]
   },
-  "recommendations_note": "Use \"associated with\" language — correlation, not causation. A/B test required to confirm targeting effects."
+  "recommendations_note": "Use \"associated with\" language — correlation, not causation. A/B test required to confirm targeting effects.",
+  "period_note": "Разбивка за полный период аккаунта. Данные до марта 2026 включены — отдельный фильтр по breakdown недоступен без повторного API-экспорта."
 }
